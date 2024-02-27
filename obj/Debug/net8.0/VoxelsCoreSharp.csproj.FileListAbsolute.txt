@@ -1,0 +1,14 @@
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\VoxelsCoreSharp.exe
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\VoxelsCoreSharp.deps.json
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\VoxelsCoreSharp.runtimeconfig.json
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\VoxelsCoreSharp.dll
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\VoxelsCoreSharp.pdb
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.AssemblyInfoInputs.cache
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.AssemblyInfo.cs
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.csproj.CoreCompileInputs.cache
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.dll
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\refint\VoxelsCoreSharp.dll
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.pdb
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.genruntimeconfig.cache
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\ref\VoxelsCoreSharp.dll
