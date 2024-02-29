@@ -7,7 +7,7 @@
 
 namespace VoxelsCoreSharp.maths;
 
-public class Bresenham {
+public class Bresenham2D {
 
     public static int generateLine((int x, int y) p1, (int x, int y) p2) {
 
@@ -49,6 +49,7 @@ public class Bresenham {
 
         for (int x = p1.x; x <= p2.x; x++) {
             Console.WriteLine($"x: {x}, y: {y}");
+            // call here
 
             if (D > 0) {
                 y += yi;
