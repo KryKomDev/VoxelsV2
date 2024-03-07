@@ -9,30 +9,45 @@ namespace VoxelsCoreSharp.maths;
 
 public class Bresenham2D {
 
-    public static int generateLine((int x, int y) p1, (int x, int y) p2) {
+    /// <summary>
+    /// generates a 2D line
+    /// </summary>
+    /// <param name="p1">2D coordinates of the first point</param>
+    /// <param name="p2">2D coordinates of the second point</param>
+    /// <param name="plot">action called when a new point of the line is generated</param>
+    public static void generateLine((int x, int y) p1, (int x, int y) p2, Action<(int x, int y)> plot) {
 
+        // decide by which axis shall the line be computed
+        // deltaX ( Math.Abs(p1.x - p2.x) ) is larger -> compute by X-axis
         if (Math.Abs(p1.y - p2.y) < Math.Abs(p1.x - p2.x)) {
 
+            // decide if x grows already or if the points have to be swapped
             if (p1.x < p2.x) {
-                generateLow(p1, p2);
+                generateByX(p1, p2, plot);
             } else {
-                generateLow(p2, p1);
+                generateByX(p2, p1, plot);
             }
                 
-        } else {
-                
+        } 
+        // deltaY ( Math.Abs(p1.y - p2.y) ) is larger -> compute by Y-axis
+        else {
+            
+            // decide if y grows already or if the points have to be swapped
             if (p1.y < p2.y) {
-                generateHigh(p1, p2);
+                generateByY(p1, p2, plot);
             } else {
-                generateHigh(p2, p1);
+                generateByY(p2, p1, plot);
             }
         }
-        
-        return 0;
     }
     
-
-    private static void generateLow((int x, int y) p1, (int x, int y) p2) {
+    /// <summary>
+    /// generates line along x-axis
+    /// </summary>
+    /// <param name="p1">2D coordinates of the first point</param>
+    /// <param name="p2">2D coordinates of the second point</param>
+    /// <param name="plot">action called when a new point of the line is generated</param>
+    private static void generateByX((int x, int y) p1, (int x, int y) p2, Action<(int x, int y)> plot) {
 
         int deltaX = p2.x - p1.x;
         int deltaY = p2.y - p1.y;
@@ -48,8 +63,10 @@ public class Bresenham2D {
         int y = p1.y;
 
         for (int x = p1.x; x <= p2.x; x++) {
-            Console.WriteLine($"x: {x}, y: {y}");
+            
+            // Console.WriteLine($"x: {x}, y: {y}");
             // call here
+            plot((x, y));
 
             if (D > 0) {
                 y += yi;
@@ -61,8 +78,15 @@ public class Bresenham2D {
 
     }
     
-    private static void generateHigh((int x, int y) p1, (int x, int y) p2) {
+    /// <summary>
+    /// generates line along y-axis
+    /// </summary>
+    /// <param name="p1">2D coordinates of the first point</param>
+    /// <param name="p2">2D coordinates of the second point</param>
+    /// <param name="plot">action called when a new point of the line is generated</param>
+    private static void generateByY((int x, int y) p1, (int x, int y) p2, Action<(int x, int y)> plot) {
         
+        // 
         int deltaX = p2.x - p1.x;
         int deltaY = p2.y - p1.y;
 
@@ -77,7 +101,9 @@ public class Bresenham2D {
         int x = p1.x;
 
         for (int y = p1.y; y <= p2.y; y++) {
-            Console.WriteLine($"x: {x}, y: {y}");
+            
+            // Console.WriteLine($"x: {x}, y: {y}");
+            plot((x, y));
 
             if (D > 0) {
                 x += xi;
