@@ -78,4 +78,8 @@ public static class ConsoleColors {
     public static void printlnColoredTextHex(string s, int hex) {
         printlnColoredText(s, (byte) (hex >> 16), (byte) (hex >> 8), (byte) hex);
     }
+
+    public static void printColoredBckgHex(string s, int hex) {
+        printColoredBckg(s, (byte) (hex >> 16), (byte) (hex >> 8), (byte) hex);
+    }
 }

@@ -42,7 +42,7 @@ public class Bresenham2D {
     }
     
     /// <summary>
-    /// generates line along x-axis
+    /// generates a line along x-axis
     /// </summary>
     /// <param name="p1">2D coordinates of the first point</param>
     /// <param name="p2">2D coordinates of the second point</param>
@@ -64,8 +64,8 @@ public class Bresenham2D {
 
         for (int x = p1.x; x <= p2.x; x++) {
             
+            // CALL SOMETHING HERE
             // Console.WriteLine($"x: {x}, y: {y}");
-            // call here
             plot((x, y));
 
             if (D > 0) {
@@ -79,7 +79,7 @@ public class Bresenham2D {
     }
     
     /// <summary>
-    /// generates line along y-axis
+    /// generates a line along y-axis
     /// </summary>
     /// <param name="p1">2D coordinates of the first point</param>
     /// <param name="p2">2D coordinates of the second point</param>
@@ -102,6 +102,7 @@ public class Bresenham2D {
 
         for (int y = p1.y; y <= p2.y; y++) {
             
+            // CALL SOMETHING HERE
             // Console.WriteLine($"x: {x}, y: {y}");
             plot((x, y));
 
