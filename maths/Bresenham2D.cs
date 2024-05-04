@@ -97,7 +97,7 @@ public class Bresenham2D {
             deltaX *= -1;
         }
 
-        int D = 2 * deltaY - deltaX;
+        int D = 2 * deltaX - deltaY;
         int x = p1.x;
 
         for (int y = p1.y; y <= p2.y; y++) {
