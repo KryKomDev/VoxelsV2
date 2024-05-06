@@ -85,19 +85,24 @@ public static class Global {
     }
 
     /// <summary>
-    /// binary size of a region in vxw files 
+    /// binary size of a region in vxw files in bytes
     /// </summary>
     public static int BINARY_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
 
     /// <summary>
-    /// binary size of a chunk in vxw files 
+    /// binary size of a chunk in vxw files in bytes
     /// </summary>
     public static int BINARY_REGION_SIZE = REGION_SIZE * REGION_SIZE * BINARY_CHUNK_SIZE;
+    
+    /// <summary>
+    /// binary size of a header in vxw files in bytes
+    /// </summary>
+    public const int BINARY_HEADER_SIZE = 16;
 
     /// <summary>
     /// updates the global binary sizes of chunks and regions
     /// </summary>
-    public static void updateBinarySizes() {
+    private static void updateBinarySizes() {
         BINARY_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
         BINARY_REGION_SIZE = REGION_SIZE * REGION_SIZE * BINARY_CHUNK_SIZE;
     }
@@ -116,4 +121,6 @@ public static class Global {
         
         updateBinarySizes();
     }
+    
+    
 }

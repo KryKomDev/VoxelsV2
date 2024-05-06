@@ -12,3 +12,4 @@ C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\ne
 C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.pdb
 C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.genruntimeconfig.cache
 C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\ref\VoxelsCoreSharp.dll
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.sourcelink.json
