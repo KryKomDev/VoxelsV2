@@ -1,2 +1,2 @@
 # ToDo:
-<i>tvoje mama</i>
+<s>tvoje mama</s>
