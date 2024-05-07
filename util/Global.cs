@@ -108,19 +108,50 @@ public static class Global {
     }
 
     /// <summary>
-    /// maximal horizontal position of player <br/>
-    /// used for chunk loading limitation
+    /// max region coordinate
     /// </summary>
-    public static long MAX_HORIZONTAL_POS = WORLD_SIZE / 2 * REGION_SIZE * CHUNK_SIZE + CHUNK_SIZE / 2;
+    public static int MAX_REGION_POS = (int)Math.Ceiling(WORLD_SIZE / 2f);
 
     /// <summary>
-    /// updates precalculated variables
+    /// min region coordinate
+    /// </summary>
+    public static int MIN_REGION_POS = (int)Math.Floor(WORLD_SIZE / 2f) * -1;
+
+    /// <summary>
+    /// offset of origin padding in the vxw region padding array in bytes
+    /// </summary>
+    public static int ORIGIN_PADDING_OFFSET = (int)(MIN_REGION_POS * WORLD_SIZE + MIN_REGION_POS) * -4;
+
+    /// <summary>
+    /// maximal horizontal position of player / request in voxels<br/>
+    /// used for chunk loading limitation
+    /// </summary>
+    public static long MAX_HORIZONTAL_POS = MAX_REGION_POS * REGION_SIZE * CHUNK_SIZE - 1;
+
+    /// <summary>
+    /// minimal horizontal position of player / request in voxels<br/>
+    /// used for chunk loading limitation
+    /// </summary>
+    public static long MIN_HORIZONTAL_POS = MIN_REGION_POS * REGION_SIZE * CHUNK_SIZE * -1;
+    
+    /// <summary>
+    /// updates all precalculated variables
     /// </summary>
     public static void updatePrecalculatedVariables() {
-        MAX_HORIZONTAL_POS = WORLD_SIZE / 2 * REGION_SIZE * CHUNK_SIZE + CHUNK_SIZE / 2;
+        MAX_HORIZONTAL_POS = (long)Math.Ceiling(WORLD_SIZE / 2f) * REGION_SIZE * CHUNK_SIZE - 1;
+        MIN_HORIZONTAL_POS = (long)Math.Floor(WORLD_SIZE / 2f) * REGION_SIZE * CHUNK_SIZE * -1;
+        MAX_REGION_POS = (int)Math.Ceiling(WORLD_SIZE / 2f);
+        MIN_REGION_POS = (int)Math.Floor(WORLD_SIZE / 2f) * -1;
+        ORIGIN_PADDING_OFFSET = (int)(MIN_REGION_POS * WORLD_SIZE + MIN_REGION_POS) * -4;
         
         updateBinarySizes();
     }
-    
-    
+
+    // TODO: list all variables
+    /// <summary>
+    /// 
+    /// </summary>
+    public static void listAll() {
+        
+    }
 }

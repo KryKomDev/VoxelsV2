@@ -6,6 +6,7 @@
 // NOTE: use 'git diff --stat 4b825dc642cb6eb9a060e54bf8d69288fbee4904' to count lines
 
 using VoxelsCoreSharp.util;
+using VoxelsCoreSharp.world;
 
 namespace VoxelsCoreSharp;
 
@@ -44,16 +45,18 @@ public static class Voxels {
             
         Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");
         
-        Global.WORLD_MANAGER.writeHeader(4, 4, 3, 4, false, true);
+        Global.WORLD_MANAGER.writeHeader(4, 4, 2, 4, false, true);
         Global.WORLD_MANAGER.loadHeader();
-        // Global.WORLD_MANAGER.generateRegionPaddingArray(false);
+        Global.WORLD_MANAGER.generateRegionPaddingArray(false);
         // Global.WORLD_MANAGER.readChunk(-16, -15);
         
-        Global.WORLD_MANAGER.generateRegionSector(0, 0);
-        Global.WORLD_MANAGER.generateRegionSector(0, 0);
+        // Global.WORLD_MANAGER.generateRegionSector(0, 0);
+        // Global.WORLD_MANAGER.generateRegionSector(15, 15);
         
-        // Global.WORLD_MANAGER.setRegionPadding(0, 0, 2);
+        // Debug.warn($"{WorldManager.getRegionPaddingOffset(31, 31)}");
         
+        Global.WORLD_MANAGER.close();
+
         // VXWHeader header = wm.readHeader();
         // Console.WriteLine(header.ToString());
     }

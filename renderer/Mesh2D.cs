@@ -3,6 +3,8 @@
 // by KryKom 2024
 //
 
+// WARNING: DISCONTINUED, left here to add lines of code written
+
 using VoxelsCoreSharp.maths;
 using VoxelsCoreSharp.util;
 

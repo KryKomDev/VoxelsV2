@@ -8,7 +8,7 @@ using VoxelsCoreSharp.util;
 namespace VoxelsCoreSharp.world;
 
 /// <summary>
-/// reads / writes .vxw world files
+/// reads from / writes to .vxw world files
 /// </summary>
 public class WorldManager {
 
@@ -30,6 +30,16 @@ public class WorldManager {
         }
     }
 
+    
+    /// <summary>
+    /// closes the FileStream,<br/>
+    /// has to be called <b>BEFORE EXITING THE PROGRAM</b>
+    /// </summary>
+    public void close() {
+        fileStream.Close();
+    }
+
+    
     /// <summary>
     /// verifies whether the file of the file is valid
     /// </summary>
@@ -49,6 +59,7 @@ public class WorldManager {
         }
     }
 
+    
     /// <summary>
     /// reads a vxw header from the world file
     /// </summary>
@@ -78,6 +89,7 @@ public class WorldManager {
         return header;
     }
 
+    
     /// <summary>
     /// writes a .vxw header to the world file
     /// </summary>
@@ -121,6 +133,7 @@ public class WorldManager {
 
     }
 
+    
     /// <summary>
     /// loads world header settings into Global
     /// </summary>
@@ -136,6 +149,7 @@ public class WorldManager {
         Global.updatePrecalculatedVariables();
     }
     
+    
     /// <summary>
     /// reads a chunk from a vxw world file
     /// </summary>
@@ -144,15 +158,13 @@ public class WorldManager {
     /// <returns>chunk if generated or partially generated, null if region not generated</returns>
     public Chunk? readChunk(long x, long y) {
         
-        if (x > Global.MAX_HORIZONTAL_POS || x < -Global.MAX_HORIZONTAL_POS || y > Global.MAX_HORIZONTAL_POS || y < -Global.MAX_HORIZONTAL_POS) {
+        if (x > Global.MAX_HORIZONTAL_POS || x < Global.MIN_HORIZONTAL_POS || y > Global.MAX_HORIZONTAL_POS || y < Global.MIN_HORIZONTAL_POS) {
             Debug.warn("position out of bounds!");
             return null;
         }
 
         byte[] buffer = new byte[Global.BINARY_CHUNK_SIZE];
         byte[] paddingRaw = new byte[4];
-
-        long? regionStart;
 
         // data reading
 
@@ -164,7 +176,7 @@ public class WorldManager {
 
         // total region padding in file
         int padding = ((paddingRaw[0] << 24) + (paddingRaw[1] << 16) + (paddingRaw[2] << 8) + paddingRaw[3]);
-        regionStart = getRegionPadding(padding);
+        long? regionStart = getRegionPadding(padding);
 
         // check if not generated
         if (regionStart == null) {
@@ -207,6 +219,15 @@ public class WorldManager {
 
 
     /// <summary>
+    /// writes chunk data to a vxw file
+    /// </summary>
+    /// <param name="chunk"></param>
+    public void writeChunk(Chunk chunk) {
+        
+    }
+
+
+    /// <summary>
     /// finds the highest region index in the region padding array
     /// </summary>
     /// <returns>the highest index</returns>
@@ -236,6 +257,11 @@ public class WorldManager {
     /// <param name="y">any y position in the region</param>
     public void generateRegionSector(int x, int y) {
 
+        if (x > Global.MAX_HORIZONTAL_POS || x < Global.MIN_HORIZONTAL_POS || y > Global.MAX_HORIZONTAL_POS || y < Global.MIN_HORIZONTAL_POS) {
+            Debug.warn("position out of bounds!");
+            return;
+        }
+        
         int index = getHighestRegionIndex() + 1;
 
         byte[] test = new byte[4];
@@ -291,12 +317,12 @@ public class WorldManager {
     /// <param name="x">any x in the region</param>
     /// <param name="y">any y in the region</param>
     /// <returns>the exact number of bytes before the region padding</returns>
-    public static long getRegionPaddingOffset(long x, long y) {
+    private static long getRegionPaddingOffset(long x, long y) {
         
         x /= Global.CHUNK_SIZE * Global.REGION_SIZE;
         y /= Global.CHUNK_SIZE * Global.REGION_SIZE;
 
-        long offset = Global.BINARY_HEADER_SIZE + (x * Global.WORLD_SIZE + y) * 4 + ((Global.WORLD_SIZE * Global.WORLD_SIZE) / 2) * 4;
+        long offset = Global.BINARY_HEADER_SIZE + (x * Global.WORLD_SIZE + y) * 4 + Global.ORIGIN_PADDING_OFFSET;
 
         return offset;
     }
@@ -307,7 +333,7 @@ public class WorldManager {
     /// </summary>
     /// <param name="index">index of the</param>
     /// <returns>total padding in bytes, or null if chunk is not generated</returns>
-    public static long? getRegionPadding(int index) {
+    private static long? getRegionPadding(int index) {
 
         // region not generated yet
         if (index == 0) return null;
@@ -333,7 +359,7 @@ public class WorldManager {
         buffer[3] = (byte)value;
         
         fileStream.Seek(getRegionPaddingOffset(x, y), SeekOrigin.Begin);
-        fileStream.Write(buffer);
+        fileStream.Write(buffer, 0, 4);
     }
 }
 

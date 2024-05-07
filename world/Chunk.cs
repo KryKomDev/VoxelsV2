@@ -37,9 +37,9 @@ public struct Chunk() {
     /// holds data about the chunk generation state <br/>
     /// 0 -> not generated<br/>
     /// 1 -> partially generated<br/>
-    /// 2 -> fully generated
+    /// 2 -> fully generated <br/>
+    /// for more info see <a href="https://github.com/KryKomDev/VoxelsV2/blob/main/world/test/vxw-format.md">vxw-format.md</a> on GitHub
     /// </summary>
-    /// <seealso cref="vxw-format.md"/>
     public byte state = 0;
 }
 
