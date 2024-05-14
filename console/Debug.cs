@@ -3,7 +3,7 @@
 // by KryKom 2024
 //
 
-namespace VoxelsCoreSharp.util;
+namespace VoxelsCoreSharp.console;
 
 public static class Debug {
 

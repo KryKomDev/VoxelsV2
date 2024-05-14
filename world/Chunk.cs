@@ -3,8 +3,6 @@
 // by KryKom 2024
 //
 
-using VoxelsCoreSharp.util;
-
 namespace VoxelsCoreSharp.world;
 
 /// <summary>

@@ -6,7 +6,6 @@
 // WARNING: DISCONTINUED, left here to add lines of code written
 
 using VoxelsCoreSharp.maths;
-using VoxelsCoreSharp.util;
 
 namespace VoxelsCoreSharp.renderer;
 

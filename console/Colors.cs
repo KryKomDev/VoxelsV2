@@ -1,4 +1,9 @@
-namespace VoxelsCoreSharp.util;
+//
+// VoxelsCoreSharp
+// by KryKom 2024
+//
+
+namespace VoxelsCoreSharp.console;
 
 public enum Colors {
     RED_5 = 0xff4b30,

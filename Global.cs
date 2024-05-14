@@ -3,9 +3,10 @@
 // by KryKom 2024
 //
 
+using VoxelsCoreSharp.console;
 using VoxelsCoreSharp.world;
 
-namespace VoxelsCoreSharp.util;
+namespace VoxelsCoreSharp;
 
 /// <summary>
 /// contains global variables and settings
@@ -69,7 +70,7 @@ public static class Global {
     /// <summary>
     /// dimensions of biomes; 2d -> false, 3d -> true
     /// </summary>
-    public static bool BIOME_DIMENSION = true;
+    public static bool BIOME_DIMENSIONS = true;
 
     /// <summary>
     /// global world manager
@@ -147,11 +148,23 @@ public static class Global {
         updateBinarySizes();
     }
 
-    // TODO: list all variables
     /// <summary>
-    /// 
+    /// lists all variables and their values from Global to console 
     /// </summary>
     public static void listAll() {
-        
+        Debug.info("Global variables:");
+        Console.WriteLine($"    display width: {DISPLAY_WIDTH},\n" +
+                          $"    display height: {DISPLAY_HEIGHT},\n" +
+                          $"    field of view: {FOV},\n" +
+                          $"    player position: [{PLAYER_POS.x}, {PLAYER_POS.y}, {PLAYER_POS.z}],\n" +
+                          $"    height limit: {HEIGHT_LIMIT},\n" +
+                          $"    chunk size: {CHUNK_SIZE} voxels,\n" +
+                          $"    region size: {REGION_SIZE} chunks,\n" +
+                          $"    world size: {WORLD_SIZE} regions,\n" +
+                          $"    biome dimensions: {(BIOME_DIMENSIONS ? "3d" : "2d")},\n" +
+                          $"    max region coordinate: {MAX_REGION_POS},\n" +
+                          $"    min region coordinate: {MIN_REGION_POS},\n" +
+                          $"    max horizontal coordinate: {MAX_HORIZONTAL_POS},\n" +
+                          $"    min horizontal coordinate: {MIN_HORIZONTAL_POS}");
     }
 }

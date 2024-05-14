@@ -5,7 +5,7 @@
 
 // Original
 
-using VoxelsCoreSharp.util;
+using VoxelsCoreSharp.console;
 
 namespace VoxelsCoreSharp.maths;
 

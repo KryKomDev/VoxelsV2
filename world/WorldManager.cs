@@ -3,7 +3,7 @@
 // by KryKom 2024
 //
 
-using VoxelsCoreSharp.util;
+using VoxelsCoreSharp.console;
 
 namespace VoxelsCoreSharp.world;
 
@@ -13,6 +13,8 @@ namespace VoxelsCoreSharp.world;
 public class WorldManager {
 
     private string worldFilePath { get; set; }
+    public string WorldFilePath => worldFilePath;
+
     private bool validated { get; set; } = false;
     private readonly FileStream fileStream;
 
@@ -144,7 +146,7 @@ public class WorldManager {
         Global.HEIGHT_LIMIT = header.maxHeight;
         Global.WORLD_SIZE = header.worldSize;
         Global.REGION_SIZE = header.regionSize;
-        Global.BIOME_DIMENSION = header.biomeDim;
+        Global.BIOME_DIMENSIONS = header.biomeDim;
         
         Global.updatePrecalculatedVariables();
     }

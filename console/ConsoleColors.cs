@@ -8,7 +8,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace VoxelsCoreSharp.util;
+namespace VoxelsCoreSharp.console;
 
 public static class ConsoleColors {
     
@@ -21,7 +21,7 @@ public static class ConsoleColors {
     /// <param name="r">red value of the color</param>
     /// <param name="g">green value of the color</param>
     /// <param name="b">blue value of the color</param>
-    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printColoredText (string s, byte r, byte g, byte b);
+    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printColoredText (string s, byte r, byte g, byte b);
     
     /// <summary>
     /// prints a string with colored background in the console without newline
@@ -30,7 +30,7 @@ public static class ConsoleColors {
     /// <param name="r">red value of the color</param>
     /// <param name="g">green value of the color</param>
     /// <param name="b">blue value of the color</param>
-    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printColoredBckg (string s, byte r, byte g, byte b);
+    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printColoredBckg (string s, byte r, byte g, byte b);
     
     
     /// <summary>
@@ -40,7 +40,7 @@ public static class ConsoleColors {
     /// <param name="r">red value of the color</param>
     /// <param name="g">green value of the color</param>
     /// <param name="b">blue value of the color</param>
-    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printlnColoredText (string s, byte r, byte g, byte b);
+    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printlnColoredText (string s, byte r, byte g, byte b);
     
     /// <summary>
     /// prints a string with colored background in the console with newline
@@ -49,13 +49,13 @@ public static class ConsoleColors {
     /// <param name="r">red value of the color</param>
     /// <param name="g">green value of the color</param>
     /// <param name="b">blue value of the color</param>
-    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printlnColoredBckg (string s, byte r, byte g, byte b);
+    [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printlnColoredBckg (string s, byte r, byte g, byte b);
     
     // TODO fix hex functions in libcolors.dll
-    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printColoredTextHex (string s, int hex);
-    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printColoredBckgHex (string s, int hex);
-    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printlnColoredTextHex (string s, int hex);
-    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/util/libcolors.dll")] public static extern void printlnColoredBckgHex (string s, int hex);
+    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printColoredTextHex (string s, int hex);
+    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printColoredBckgHex (string s, int hex);
+    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printlnColoredTextHex (string s, int hex);
+    // [DllImport("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/console/libcolors.dll")] public static extern void printlnColoredBckgHex (string s, int hex);
     
     /// <summary>
     /// prints a colored string in the console without newline
