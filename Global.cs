@@ -153,7 +153,7 @@ public static class Global {
     /// </summary>
     public static void listAll() {
         Debug.info("Global variables:");
-        Console.WriteLine($"    display width: {DISPLAY_WIDTH},\n" +
+        ConsoleColors.printlnColoredTextHex($"    display width: {DISPLAY_WIDTH},\n" +
                           $"    display height: {DISPLAY_HEIGHT},\n" +
                           $"    field of view: {FOV},\n" +
                           $"    player position: [{PLAYER_POS.x}, {PLAYER_POS.y}, {PLAYER_POS.z}],\n" +
@@ -165,6 +165,8 @@ public static class Global {
                           $"    max region coordinate: {MAX_REGION_POS},\n" +
                           $"    min region coordinate: {MIN_REGION_POS},\n" +
                           $"    max horizontal coordinate: {MAX_HORIZONTAL_POS},\n" +
-                          $"    min horizontal coordinate: {MIN_HORIZONTAL_POS}");
+                          $"    min horizontal coordinate: {MIN_HORIZONTAL_POS}", (int)Colors.GRAY_2);
     }
+
+    public static readonly CommandParser COMMAND_PARSER = new CommandParser();
 }

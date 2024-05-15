@@ -59,6 +59,9 @@ public static class Voxels {
         
         Global.WORLD_MANAGER.close();
 
+        Global.COMMAND_PARSER.shell();
+
+        
         // VXWHeader header = wm.readHeader();
         // Console.WriteLine(header.ToString());
     }
