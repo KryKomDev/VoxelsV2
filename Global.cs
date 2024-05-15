@@ -153,20 +153,27 @@ public static class Global {
     /// </summary>
     public static void listAll() {
         Debug.info("Global variables:");
-        ConsoleColors.printlnColoredTextHex($"    display width: {DISPLAY_WIDTH},\n" +
-                          $"    display height: {DISPLAY_HEIGHT},\n" +
-                          $"    field of view: {FOV},\n" +
-                          $"    player position: [{PLAYER_POS.x}, {PLAYER_POS.y}, {PLAYER_POS.z}],\n" +
-                          $"    height limit: {HEIGHT_LIMIT},\n" +
-                          $"    chunk size: {CHUNK_SIZE} voxels,\n" +
-                          $"    region size: {REGION_SIZE} chunks,\n" +
-                          $"    world size: {WORLD_SIZE} regions,\n" +
-                          $"    biome dimensions: {(BIOME_DIMENSIONS ? "3d" : "2d")},\n" +
-                          $"    max region coordinate: {MAX_REGION_POS},\n" +
-                          $"    min region coordinate: {MIN_REGION_POS},\n" +
-                          $"    max horizontal coordinate: {MAX_HORIZONTAL_POS},\n" +
-                          $"    min horizontal coordinate: {MIN_HORIZONTAL_POS}", (int)Colors.GRAY_2);
+        ConsoleColors.printlnColoredTextHex(
+            $"    display width: \x1B[1m{DISPLAY_WIDTH}\x1B[22m,\n" + 
+            $"    display height: \x1B[1m{DISPLAY_HEIGHT}\x1B[22m,\n" + 
+            $"    field of view: \x1B[1m{FOV}\x1B[22m,\n" + 
+            $"    player position: \x1B[1m[{PLAYER_POS.x}, {PLAYER_POS.y}, {PLAYER_POS.z}]\x1B[22m,\n" + 
+            $"    height limit: \x1B[1m{HEIGHT_LIMIT}\x1B[22m,\n" + 
+            $"    chunk size: \x1B[1m{CHUNK_SIZE}\x1B[22m voxels,\n" + 
+            $"    region size: \x1B[1m{REGION_SIZE}\x1B[22m chunks,\n" + 
+            $"    world size: \x1B[1m{WORLD_SIZE}\x1B[22m regions,\n" + 
+            $"    biome dimensions: \x1B[1m{(BIOME_DIMENSIONS ? "3d" : "2d")}\x1B[22m,\n" + 
+            $"    max region coordinate: \x1B[1m{MAX_REGION_POS}\x1B[22m,\n" + 
+            $"    min region coordinate: \x1B[1m{MIN_REGION_POS}\x1B[22m,\n" + 
+            $"    max horizontal coordinate: \x1B[1m{MAX_HORIZONTAL_POS}\x1B[22m,\n" + 
+            $"    min horizontal coordinate: \x1B[1m{MIN_HORIZONTAL_POS}\x1B[22m", 
+            (int)Colors.GRAY_2);
     }
 
-    public static readonly CommandParser COMMAND_PARSER = new CommandParser();
+    /// <summary>
+    /// global shell command parser
+    /// </summary>
+    public static readonly CommandParser COMMAND_PARSER = new();
+
+    public static SceneManager SCENE_MANAGER = new SceneManager();
 }

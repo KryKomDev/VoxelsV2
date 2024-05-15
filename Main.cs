@@ -43,21 +43,21 @@ public static class Voxels {
             
         printLogo();
             
-        Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");
+        // Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");
         
-        Global.WORLD_MANAGER.writeHeader(16, 16, 256, 32, false, true);
-        Global.WORLD_MANAGER.loadHeader();
-        Global.WORLD_MANAGER.generateRegionPaddingArray(false);
+        // Global.WORLD_MANAGER.writeHeader(16, 16, 256, 32, false, true);
+        // Global.WORLD_MANAGER.loadHeader();
+        // Global.WORLD_MANAGER.generateRegionPaddingArray(false);
         // Global.WORLD_MANAGER.readChunk(-16, -15);
         
-        Global.listAll();
+        // Global.listAll();
         
         // Global.WORLD_MANAGER.generateRegionSector(0, 0);
         // Global.WORLD_MANAGER.generateRegionSector(15, 15);
         
         // Debug.warn($"{WorldManager.getRegionPaddingOffset(31, 31)}");
         
-        Global.WORLD_MANAGER.close();
+        // Global.WORLD_MANAGER.close();
 
         Global.COMMAND_PARSER.shell();
 
@@ -79,6 +79,6 @@ public static class Voxels {
                                           "           \\ ! /\n\n"
             , (int)Colors.GREEN_1);
         ConsoleColors.printlnColoredTextHex("        Voxels by:\n   KryKom & ZlomenyMesic\n", 0x15751a);
-        Console.WriteLine("----------------------------\nLog:\n");
+        Console.WriteLine("============================\n");
     }
 }
