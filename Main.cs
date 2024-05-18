@@ -43,7 +43,7 @@ public static class Voxels {
             
         printLogo();
             
-        // Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");
+        // Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");se
         
         // Global.WORLD_MANAGER.writeHeader(16, 16, 256, 32, false, true);
         // Global.WORLD_MANAGER.loadHeader();
@@ -66,7 +66,7 @@ public static class Voxels {
         // Console.WriteLine(header.ToString());
     }
     
-    static void printLogo() {
+    public static void printLogo() {
         ConsoleColors.printColoredTextHex("             _\n" +
                                           "       _ _ /   \\ _ _\n" +
                                           "   _ /               \\ _\n" +
@@ -77,8 +77,8 @@ public static class Voxels {
                                           " | _         |         _ |\n" +
                                           "     \\ _ _   |   _ _ /\n" +
                                           "           \\ ! /\n\n"
-            , (int)Colors.GREEN_1);
-        ConsoleColors.printlnColoredTextHex("        Voxels by:\n   KryKom & ZlomenyMesic\n", 0x15751a);
+            , 0x7ad380);
+        ConsoleColors.printlnColoredTextHex("        Voxels by:\n   KryKom & ZlomenyMesic\n", 0x4e8752);
         Console.WriteLine("============================\n");
     }
 }

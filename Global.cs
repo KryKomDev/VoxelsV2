@@ -82,30 +82,31 @@ public static class Global {
     /// </summary>
     /// <param name="worldFilePath"></param>
     public static void setupWorldManager(string worldFilePath) {
+        WORLD_MANAGER?.close();
         WORLD_MANAGER = new WorldManager(worldFilePath);
     }
 
     /// <summary>
     /// binary size of a region in vxw files in bytes
     /// </summary>
-    public static int BINARY_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
+    public static int BYTE_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
 
     /// <summary>
     /// binary size of a chunk in vxw files in bytes
     /// </summary>
-    public static int BINARY_REGION_SIZE = REGION_SIZE * REGION_SIZE * BINARY_CHUNK_SIZE;
+    public static int BYTE_REGION_SIZE = REGION_SIZE * REGION_SIZE * BYTE_CHUNK_SIZE;
     
     /// <summary>
     /// binary size of a header in vxw files in bytes
     /// </summary>
-    public const int BINARY_HEADER_SIZE = 16;
+    public const int BYTE_HEADER_SIZE = 16;
 
     /// <summary>
     /// updates the global binary sizes of chunks and regions
     /// </summary>
     private static void updateBinarySizes() {
-        BINARY_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
-        BINARY_REGION_SIZE = REGION_SIZE * REGION_SIZE * BINARY_CHUNK_SIZE;
+        BYTE_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
+        BYTE_REGION_SIZE = REGION_SIZE * REGION_SIZE * BYTE_CHUNK_SIZE;
     }
 
     /// <summary>
@@ -134,6 +135,16 @@ public static class Global {
     /// used for chunk loading limitation
     /// </summary>
     public static long MIN_HORIZONTAL_POS = MIN_REGION_POS * REGION_SIZE * CHUNK_SIZE * -1;
+
+    /// <summary>
+    /// max chunk coordinate
+    /// </summary>
+    public static long MAX_CHUNK_POS = MAX_REGION_POS * REGION_SIZE - 1;
+
+    /// <summary>
+    /// min chunk coordinate
+    /// </summary>
+    public static long MIN_CHUNK_POS = MIN_REGION_POS * REGION_SIZE * -1;
     
     /// <summary>
     /// updates all precalculated variables
@@ -144,6 +155,8 @@ public static class Global {
         MAX_REGION_POS = (int)Math.Ceiling(WORLD_SIZE / 2f);
         MIN_REGION_POS = (int)Math.Floor(WORLD_SIZE / 2f) * -1;
         ORIGIN_PADDING_OFFSET = (int)(MIN_REGION_POS * WORLD_SIZE + MIN_REGION_POS) * -4;
+        MAX_CHUNK_POS = MAX_REGION_POS * REGION_SIZE - 1;
+        MIN_CHUNK_POS = MIN_REGION_POS * REGION_SIZE * -1;
         
         updateBinarySizes();
     }

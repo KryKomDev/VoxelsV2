@@ -16,13 +16,25 @@ public class WorldManager {
     public string WorldFilePath => worldFilePath;
 
     private bool validated { get; set; } = false;
-    private readonly FileStream fileStream;
+    private readonly FileStream? fileStream;
 
     public WorldManager(string worldFilePath) {
         this.worldFilePath = worldFilePath;
         Debug.info($"setting up new WorldManager for path \"{worldFilePath}\"...");
 
-        fileStream = new FileStream(worldFilePath, FileMode.Open, FileAccess.ReadWrite);
+        if (worldFilePath.Length < 4 || worldFilePath.Substring(worldFilePath.Length - 4) != ".vxw") {
+            Debug.warn("specified file does not have the correct file extension \".vxw\"");
+        }
+        
+        try {
+            fileStream = new FileStream(worldFilePath, FileMode.Open, FileAccess.ReadWrite);
+        }
+        catch {
+            Debug.error("Could not find specified world file!");
+        }
+        finally {
+            fileStream ??= new FileStream(worldFilePath + (worldFilePath.Substring(worldFilePath.Length - 4) != ".vxw" ? ".vxw" : ""), FileMode.Create, FileAccess.ReadWrite);
+        }
 
         if (validate() == 0) {
             validated = true;
@@ -104,7 +116,7 @@ public class WorldManager {
         
         Debug.info("writing to world file...");
         
-        byte[] buffer = new byte[Global.BINARY_HEADER_SIZE];
+        byte[] buffer = new byte[Global.BYTE_HEADER_SIZE];
         
         if (!validated && !ignoreInvalidFormat) {
             Debug.error("invalid world file. Writing to this file can result in data corruption. Aborting...");
@@ -160,12 +172,14 @@ public class WorldManager {
     /// <returns>chunk if generated or partially generated, null if region not generated</returns>
     public Chunk? readChunk(long x, long y) {
         
-        if (x > Global.MAX_HORIZONTAL_POS || x < Global.MIN_HORIZONTAL_POS || y > Global.MAX_HORIZONTAL_POS || y < Global.MIN_HORIZONTAL_POS) {
+        if (x > Global.MAX_HORIZONTAL_POS || x < Global.MIN_HORIZONTAL_POS || 
+            y > Global.MAX_HORIZONTAL_POS || y < Global.MIN_HORIZONTAL_POS) {
+            
             Debug.warn("position out of bounds!");
             return null;
         }
 
-        byte[] buffer = new byte[Global.BINARY_CHUNK_SIZE];
+        byte[] buffer = new byte[Global.BYTE_CHUNK_SIZE];
         byte[] paddingRaw = new byte[4];
 
         // data reading
@@ -186,8 +200,8 @@ public class WorldManager {
             return null;
         }
 
-        fileStream.Seek((long)((x * Global.WORLD_SIZE + y) * Global.BINARY_CHUNK_SIZE + regionStart)!, SeekOrigin.Begin);
-        fileStream.Read(buffer, 0, Global.BINARY_CHUNK_SIZE);
+        fileStream.Seek((long)((x * Global.WORLD_SIZE + y) * Global.BYTE_CHUNK_SIZE + regionStart)!, SeekOrigin.Begin);
+        fileStream.Read(buffer, 0, Global.BYTE_CHUNK_SIZE);
 
         // data extraction
         Chunk chunk = new() {
@@ -226,6 +240,37 @@ public class WorldManager {
     /// <param name="chunk"></param>
     public void writeChunk(Chunk chunk) {
         
+        // if chunk is out of bounds, i don't know why would that happen
+        if (chunk.x > Global.MAX_CHUNK_POS || chunk.x < Global.MIN_CHUNK_POS || 
+            chunk.y > Global.MAX_CHUNK_POS || chunk.y < Global.MIN_CHUNK_POS) {
+            
+            Debug.warn("position out of bounds!");
+            return;
+        }
+        
+        // padding of the region in ptr array
+        long arrayPadding = getRegionPaddingOffset(chunk.x, chunk.y);
+        byte[] paddingRaw = new byte[4];
+        
+        fileStream.Seek(arrayPadding, SeekOrigin.Begin);
+        fileStream.Read(paddingRaw, 0, 4);
+        
+        // total region padding in file
+        int padding = ((paddingRaw[0] << 24) + (paddingRaw[1] << 16) + (paddingRaw[2] << 8) + paddingRaw[3]);
+
+        // if region not generated yet
+        if (padding == 0) {
+            int newPadding = getHighestRegionIndex();
+            byte[] npBytes = [(byte)(newPadding >> 24), (byte)(newPadding >> 16), (byte)(newPadding >> 8), (byte)newPadding];
+            fileStream.Write(npBytes, 0, 4);
+            generateRegionSector((int)(chunk.x * 16), (int)(chunk.y * 16));
+
+            padding = newPadding;
+        }
+        
+        long? regionStart = getRegionPadding(padding);
+        
+        
     }
 
 
@@ -236,7 +281,7 @@ public class WorldManager {
     public int getHighestRegionIndex() {
         int max = 0;
 
-        for (int i = 16; i < Global.BINARY_HEADER_SIZE + Global.WORLD_SIZE * Global.WORLD_SIZE * 4; i += 4) {
+        for (int i = 16; i < Global.BYTE_HEADER_SIZE + Global.WORLD_SIZE * Global.WORLD_SIZE * 4; i += 4) {
 
             byte[] buffer = new byte[4];
 
@@ -257,7 +302,7 @@ public class WorldManager {
     /// </summary>
     /// <param name="x">any x position in the region</param>
     /// <param name="y">any y position in the region</param>
-    public void generateRegionSector(int x, int y) {
+    private void generateRegionSector(int x, int y) {
 
         if (x > Global.MAX_HORIZONTAL_POS || x < Global.MIN_HORIZONTAL_POS || y > Global.MAX_HORIZONTAL_POS || y < Global.MIN_HORIZONTAL_POS) {
             Debug.warn("position out of bounds!");
@@ -280,11 +325,11 @@ public class WorldManager {
         setRegionPadding(x, y, index);
 
         // continue
-        byte[] buffer = new byte[Global.BINARY_REGION_SIZE];
+        byte[] buffer = new byte[Global.BYTE_REGION_SIZE];
 
-        fileStream.Seek(Global.BINARY_HEADER_SIZE + Global.WORLD_SIZE * Global.WORLD_SIZE * 4 + (index - 1) * Global.BINARY_REGION_SIZE, SeekOrigin.Begin);
+        fileStream.Seek(Global.BYTE_HEADER_SIZE + Global.WORLD_SIZE * Global.WORLD_SIZE * 4 + (index - 1) * Global.BYTE_REGION_SIZE, SeekOrigin.Begin);
 
-        fileStream.Write(buffer, 0, Global.BINARY_REGION_SIZE);
+        fileStream.Write(buffer, 0, Global.BYTE_REGION_SIZE);
     }
 
 
@@ -307,24 +352,24 @@ public class WorldManager {
             }
         }
         
-        fileStream.Seek(Global.BINARY_HEADER_SIZE, SeekOrigin.Begin);
+        fileStream.Seek(Global.BYTE_HEADER_SIZE, SeekOrigin.Begin);
             
         fileStream.Write(buffer, 0, size);
     }
 
     
     /// <summary>
-    /// computes region padding padding in the vxw region padding array
+    /// computes region padding offset in the vxw region padding array
     /// </summary>
     /// <param name="x">any x in the region</param>
     /// <param name="y">any y in the region</param>
-    /// <returns>the exact number of bytes before the region padding</returns>
+    /// <returns>the exact number of bytes before the region padding data</returns>
     private static long getRegionPaddingOffset(long x, long y) {
         
         x /= Global.CHUNK_SIZE * Global.REGION_SIZE;
         y /= Global.CHUNK_SIZE * Global.REGION_SIZE;
 
-        long offset = Global.BINARY_HEADER_SIZE + (x * Global.WORLD_SIZE + y) * 4 + Global.ORIGIN_PADDING_OFFSET;
+        long offset = Global.BYTE_HEADER_SIZE + (x * Global.WORLD_SIZE + y) * 4 + Global.ORIGIN_PADDING_OFFSET;
 
         return offset;
     }
@@ -340,7 +385,7 @@ public class WorldManager {
         // region not generated yet
         if (index == 0) return null;
         
-        long padding = Global.BINARY_REGION_SIZE * (index - 1) + Global.BINARY_HEADER_SIZE + Global.WORLD_SIZE * Global.WORLD_SIZE * 4;
+        long padding = Global.BYTE_REGION_SIZE * (index - 1) + Global.BYTE_HEADER_SIZE + Global.WORLD_SIZE * Global.WORLD_SIZE * 4;
 
         return padding;
     }
@@ -377,6 +422,10 @@ public struct VXWHeader {
     public bool biomeDim;
 
     public override string ToString() {
-        return $"c-size: {chunkSize}, r-size: {regionSize}, w-size: {worldSize}, m-height: {maxHeight}, biomeDim: {biomeDim}";
+        return $"c-size: \x1B[1m{chunkSize}\x1B[22m,\n" +
+               $"r-size: \x1B[1m{regionSize}\x1B[22m,\n" +
+               $"w-size: \x1B[1m{worldSize}\x1B[22m,\n" +
+               $"m-height: \x1B[1m{maxHeight}\x1B[22m,\n" +
+               $"biomeDim: \x1B[1m{biomeDim}\x1B[22m";
     }
 }
