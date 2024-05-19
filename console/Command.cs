@@ -1,6 +1,6 @@
 //
 // VoxelsCoreSharp
-// by KryKomDev
+// by KryKom
 //
 
 using System.Linq.Expressions;
@@ -31,17 +31,48 @@ public class CommandParser {
         ]),
         new Command("help", [
             new Flag("-overall", [], (object[] args) => {
+                Console.WriteLine("Welcome to VoxelsShell.\n" +
+                                  "syntax of every command is <command-name> <flag-name> <params...>\n" +
+                                  "for more help type 'help -command <command-name>' or 'help -flag <command-name> <flag-name>'\n" +
+                                  "to exit type 'exit'");
+            }, "gives overall info about the shell"),
+            
+            new Flag("-global", [], (object[] args) => Global.listAll(), "lists all global variables and their values"),
+            
+            new Flag("-clear", [], (object[] args) => Console.Clear(), "clears console"),
+            
+            new Flag("-logo", [], (object[] args) => Voxels.printLogo(), "just prints the ascii art"),
+            
+            new Flag("-flag", [(int)ArgumentType.STRING, (int)ArgumentType.STRING], (object[] args) => {
+                foreach (Command c in commands) {
+                    if (c.commandName == (string)args[0]) {
+                        foreach (Flag f in c.flags) {
+                            if (f.flagName == (string)args[1]) {
+                                Console.WriteLine(f.description ?? "this does not have a description...");
+                                return;
+                            }
+                        }
+                    }
+                }
                 
-            }),
-            new Flag("-global", [], (object[] args) => Global.listAll()),
-            new Flag("-clear", [], (object[] args) => Console.Clear()),
-            new Flag("-wm", [], (object[] args) => Console.WriteLine()),
-            new Flag("-logo", [], (object[] args) => Voxels.printLogo())
+                ConsoleColors.printlnColoredTextHex("No matching flag found", (int)Colors.RED_5);
+            }, "prints description of the inputted flag"),
+            
+            new Flag("-command", [(int)ArgumentType.STRING], (object[] args) => {
+                foreach (Command c in commands) {
+                    if (c.commandName == (string)args[0]) {
+                        Console.WriteLine(c.description ?? "this does not have a description...");
+                        return;
+                    }
+                }
+                
+                ConsoleColors.printlnColoredTextHex("No matching command found", (int)Colors.RED_5);
+            }, "prints description of the inputted command")
         ]),
         new Command("setup", [
-            new Flag("-wm", [(int)ArgumentType.STRING], (object[] args) => Global.setupWorldManager(args[0].ToString()!)),
+            new Flag("-wm", [(int)ArgumentType.STRING], (object[] args) => Global.setupWorldManager(args[0].ToString()!), "sets up world manager"),
             new Flag("-sm", [], (object[] args) => {}),
-        ]),
+        ], "sets up some of the tools"),
         
         new Command("wm", [
             new Flag("-close", [], (object[] args) => Global.WORLD_MANAGER.close()),
@@ -85,6 +116,25 @@ public class CommandParser {
                 
                 Global.WORLD_MANAGER.writeHeader(h.chunkSize, h.regionSize, h.maxHeight, h.worldSize, h.biomeDim, true);
             }),
+            
+            new Flag("-reset", [], (object[] args) => {
+                if (Global.WORLD_MANAGER == null) {
+                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    return;
+                }
+                
+                Console.Write("This will reset the current world file content, \ndo you want to continue? [y/n]: ");
+                string response = Console.ReadLine();
+
+                while (response != "y" && response != "n") {
+                    Console.Write("invalid answer, try again. [y/n]: ");
+                    response = Console.ReadLine();
+                }
+
+                if (response == "y") {
+                    
+                }
+            }, "resets the contents of the world file")
         ]),
         
     ];
@@ -108,7 +158,8 @@ public class CommandParser {
     /// <returns>0 if successfully executed, 1 if an error occured, 2 if exited</returns>
     private int parse() {
         
-        Console.Write($"\n[{DateTime.Now:HH:mm:ss}]: $ ");
+        // Console.Write($"\n[{DateTime.Now:HH:mm:ss}]: $ ");
+        ConsoleColors.printColoredTextHex($"\n[{DateTime.Now:HH:mm:ss}]: \x1B[1m$\x1B[22m ", (int)Colors.GRAY_5);
         
         string? command = Console.ReadLine();
 
@@ -134,7 +185,7 @@ public class CommandParser {
         foreach (Command p in commands) {
             if (p.commandName == keywords.commandName) {
                 foreach (Flag c in p.flags) {
-                    if (c.FlagName == keywords.flagName) {
+                    if (c.flagName == keywords.flagName) {
                         executedCommand = c;
                         break;
                     }
@@ -268,6 +319,11 @@ public class CommandParser {
 internal struct Command(string commandName, Flag[] flags) {
     public readonly string commandName = commandName;
     public readonly Flag[] flags = flags;
+    public readonly string? description = null;
+
+    public Command(string commandName, Flag[] flags, string? description = null) : this(commandName, flags) {
+        this.description = description;
+    }
 }
 
 /// <summary>
@@ -277,9 +333,14 @@ internal struct Command(string commandName, Flag[] flags) {
 /// <param name="args">arguments inputted into the shell behind the command</param>
 /// <param name="code">code that executes when run</param>
 internal struct Flag(string flagName, int[] args, Action<object[]> code) {
-    public readonly string FlagName = flagName;
+    public readonly string flagName = flagName;
     public readonly int[] args = args;
     public readonly Action<object[]> code = code;
+    public readonly string? description = null;
+
+    public Flag(string flagName, int[] args, Action<object[]> code, string? description = null) : this(flagName, args, code) {
+        this.description = description;
+    }
 }
 
 /// <summary>

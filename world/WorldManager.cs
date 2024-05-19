@@ -217,13 +217,17 @@ public class WorldManager {
             chunk.content[i].biome = buffer[byteCount];
             byteCount++;
 
+            chunk.content[i].content = new byte[Global.CHUNK_SIZE, Global.CHUNK_SIZE, Global.CHUNK_SIZE];
+
             for (int iz = 0; iz < Global.CHUNK_SIZE; iz++) {
 
                 chunk.content[i].z = iz;
 
                 for (int iy = 0; iy < Global.CHUNK_SIZE; iy++) {
                     for (int ix = 0; ix < Global.CHUNK_SIZE; ix++) {
-                        chunk.content[i].content[ix, iy, iz] = buffer[byteCount];
+                        chunk.content[i]
+                                .content[ix, iy, iz] = 
+                            buffer[byteCount];
                         byteCount++;
                     }
                 }
@@ -256,11 +260,11 @@ public class WorldManager {
         fileStream.Read(paddingRaw, 0, 4);
         
         // total region padding in file
-        int padding = ((paddingRaw[0] << 24) + (paddingRaw[1] << 16) + (paddingRaw[2] << 8) + paddingRaw[3]);
+        int padding = (paddingRaw[0] << 24) + (paddingRaw[1] << 16) + (paddingRaw[2] << 8) + paddingRaw[3];
 
         // if region not generated yet
         if (padding == 0) {
-            int newPadding = getHighestRegionIndex();
+            int newPadding = getHighestRegionIndex() + 1;
             byte[] npBytes = [(byte)(newPadding >> 24), (byte)(newPadding >> 16), (byte)(newPadding >> 8), (byte)newPadding];
             fileStream.Write(npBytes, 0, 4);
             generateRegionSector((int)(chunk.x * 16), (int)(chunk.y * 16));
@@ -269,8 +273,31 @@ public class WorldManager {
         }
         
         long? regionStart = getRegionPadding(padding);
-        
-        
+
+        long chunkStart = (long)(regionStart + chunk.x * Global.REGION_SIZE + chunk.y)!;
+
+        fileStream.Seek(chunkStart, SeekOrigin.Begin);
+        fileStream.Write([chunk.state, chunk.climateBiome], 0, 2);
+        fileStream.Seek(chunkStart + 2, SeekOrigin.Begin);
+
+        foreach (SubChunk sc in chunk.content) {
+            byte[] raw = new byte[1 + Global.CHUNK_SIZE * Global.CHUNK_SIZE * Global.CHUNK_SIZE];
+
+            raw[0] = sc.biome;
+
+            int i = 1;
+
+            for (int z = 0; z < Global.CHUNK_SIZE; z++) {
+                for (int y = 0; y < Global.CHUNK_SIZE; y++) {
+                    for (int x = 0; x < Global.CHUNK_SIZE; x++) {
+                        raw[i] = sc.content[x, y, z];
+                        i++;
+                    }
+                }
+            }
+            
+            fileStream.Write(raw);
+        }
     }
 
 

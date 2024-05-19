@@ -43,12 +43,24 @@ public static class Voxels {
             
         printLogo();
             
-        // Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");se
+        Global.setupWorldManager("C:/Users/krystof/Desktop/projects/Voxels/VoxelsCore/VoxelsCoreSharp/world/test/test.vxw");
         
-        // Global.WORLD_MANAGER.writeHeader(16, 16, 256, 32, false, true);
-        // Global.WORLD_MANAGER.loadHeader();
+        Global.WORLD_MANAGER.writeHeader(1, 1, 1, 1, false, true);
+        Global.WORLD_MANAGER.loadHeader();
         // Global.WORLD_MANAGER.generateRegionPaddingArray(false);
         // Global.WORLD_MANAGER.readChunk(-16, -15);
+
+        SubChunk sc = new SubChunk();
+        sc.biome = 3;
+        sc.content[0, 0, 0] = 4;
+
+        Chunk c = new Chunk();
+        c.climateBiome = 2;
+        c.state = 1;
+        c.content = [sc];
+        
+        Global.WORLD_MANAGER.writeChunk(c);
+        Chunk? c2 = Global.WORLD_MANAGER.readChunk(0, 0);
         
         // Global.listAll();
         
