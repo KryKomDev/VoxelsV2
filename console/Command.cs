@@ -1,9 +1,10 @@
 //
 // VoxelsCoreSharp
-// by KryKomDev
+// by KryKom
 //
 
 using System.Linq.Expressions;
+using VoxelsCoreSharp.world;
 
 namespace VoxelsCoreSharp.console;
 
@@ -12,33 +13,130 @@ namespace VoxelsCoreSharp.console;
 /// </summary>
 public class CommandParser {
     
-    private static readonly Program[] commands = [
-        new Program("world", [
-            new Command("info", [], (object[] args) => Console.WriteLine(Global.WORLD_MANAGER.WorldFilePath)),
-            new Command("load", [(int)ArgumentType.STRING], (object[] args) => Console.WriteLine(args[0])),
-            new Command("save", [], (object[] args) => Console.WriteLine("closing"))
+    private static readonly Command[] commands = [
+        new Command("world", [
+            new Flag("-info", [], (object[] args) => Console.WriteLine(Global.WORLD_MANAGER.WorldFilePath)),
+            new Flag("-load", [(int)ArgumentType.STRING], (object[] args) => Console.WriteLine(args[0])),
+            new Flag("-save", [], (object[] args) => Console.WriteLine("closing"))
         ]),
-        new Program("place", [
-            new Command("random", [(int)ArgumentType.STRING, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.LONG], 
+        new Command("place", [
+            new Flag("-random", [(int)ArgumentType.STRING, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.LONG], 
                 (object[] args) => Console.WriteLine("")),
-            new Command("leveled", [(int)ArgumentType.STRING, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.INT], 
+            new Flag("-leveled", [(int)ArgumentType.STRING, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.INT], 
                 (object[] args) => Console.WriteLine(""))
         ]),
-        new Program("generate", [
-            new Command("chunk", [], (object[] args) => Console.WriteLine("generating chunk...")),
-            new Command("world", [(int)ArgumentType.STRING], (object[] args) => Console.WriteLine("generating world..."))
+        new Command("generate", [
+            new Flag("-chunk", [], (object[] args) => Console.WriteLine("generating chunk...")),
+            new Flag("-world", [(int)ArgumentType.STRING], (object[] args) => Console.WriteLine("generating world..."))
         ]),
-        new Program("help", [
-            new Command("overall", [], (object[] args) => {
+        new Command("help", [
+            new Flag("-overall", [], (object[] args) => {
+                Console.WriteLine("Welcome to VoxelsShell.\n" +
+                                  "syntax of every command is <command-name> <flag-name> <params...>\n" +
+                                  "for more help type 'help -command <command-name>' or 'help -flag <command-name> <flag-name>'\n" +
+                                  "to exit type 'exit'");
+            }, "gives overall info about the shell"),
+            
+            new Flag("-global", [], (object[] args) => Global.listAll(), "lists all global variables and their values"),
+            
+            new Flag("-clear", [], (object[] args) => Console.Clear(), "clears console"),
+            
+            new Flag("-logo", [], (object[] args) => Voxels.printLogo(), "just prints the ascii art"),
+            
+            new Flag("-flag", [(int)ArgumentType.STRING, (int)ArgumentType.STRING], (object[] args) => {
+                foreach (Command c in commands) {
+                    if (c.commandName == (string)args[0]) {
+                        foreach (Flag f in c.flags) {
+                            if (f.flagName == (string)args[1]) {
+                                Console.WriteLine(f.description ?? "this does not have a description...");
+                                return;
+                            }
+                        }
+                    }
+                }
                 
-            }),
-            new Command("global", [], (object[] args) => Global.listAll()),
-            new Command("clear", [], (object[] args) => Console.Clear())
+                ConsoleColors.printlnColoredTextHex("No matching flag found", (int)Colors.RED_5);
+            }, "prints description of the inputted flag"),
+            
+            new Flag("-command", [(int)ArgumentType.STRING], (object[] args) => {
+                foreach (Command c in commands) {
+                    if (c.commandName == (string)args[0]) {
+                        Console.WriteLine(c.description ?? "this does not have a description...");
+                        return;
+                    }
+                }
+                
+                ConsoleColors.printlnColoredTextHex("No matching command found", (int)Colors.RED_5);
+            }, "prints description of the inputted command")
         ]),
-        new Program("setup", [
-            new Command("wm", [(int)ArgumentType.STRING], (object[] args) => Global.setupWorldManager(args[0].ToString()!)),
-            new Command("sm", [], (object[] args) => {}),
-        ])
+        new Command("setup", [
+            new Flag("-wm", [(int)ArgumentType.STRING], (object[] args) => Global.setupWorldManager(args[0].ToString()!), "sets up world manager"),
+            new Flag("-sm", [], (object[] args) => {}),
+        ], "sets up some of the tools"),
+        
+        new Command("wm", [
+            new Flag("-close", [], (object[] args) => Global.WORLD_MANAGER.close()),
+            new Flag("-validate", [], (object[] args) => {
+                if (Global.WORLD_MANAGER == null) {
+                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    return;
+                }
+                if (Global.WORLD_MANAGER.validate() == 0) {
+                    ConsoleColors.printlnColoredTextHex("World file is the right format", (int)Colors.GREEN_3);
+                }
+                else {
+                    ConsoleColors.printlnColoredTextHex("World file has incorrect format", (int)Colors.RED_5);
+                }
+            }),
+            
+            new Flag("-rh", [], (object[] args) => {
+                
+                if (Global.WORLD_MANAGER == null) {
+                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    return;
+                }
+                
+                VXWHeader h = Global.WORLD_MANAGER.readHeader();
+                ConsoleColors.printlnColoredTextHex("" + h, (int)Colors.GRAY_2);
+            }),
+            
+            new Flag("-wh", [(int)ArgumentType.USHORT, (int)ArgumentType.USHORT, (int)ArgumentType.UINT, (int)ArgumentType.UINT, (int)ArgumentType.BOOL], (object[] args) => {
+                VXWHeader h = new VXWHeader {
+                    chunkSize = (ushort)args[0],
+                    regionSize = (ushort)args[1],
+                    maxHeight = (uint)args[2],
+                    worldSize = (uint)args[3],
+                    biomeDim = (bool)args[4]
+                };
+
+                if (Global.WORLD_MANAGER == null) {
+                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    return;
+                }
+                
+                Global.WORLD_MANAGER.writeHeader(h.chunkSize, h.regionSize, h.maxHeight, h.worldSize, h.biomeDim, true);
+            }),
+            
+            new Flag("-reset", [], (object[] args) => {
+                if (Global.WORLD_MANAGER == null) {
+                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    return;
+                }
+                
+                Console.Write("This will reset the current world file content, \ndo you want to continue? [y/n]: ");
+                string response = Console.ReadLine();
+
+                while (response != "y" && response != "n") {
+                    Console.Write("invalid answer, try again. [y/n]: ");
+                    response = Console.ReadLine();
+                }
+
+                if (response == "y") {
+                    
+                }
+            }, "resets the contents of the world file")
+        ]),
+        
     ];
 
     /// <summary>
@@ -60,7 +158,8 @@ public class CommandParser {
     /// <returns>0 if successfully executed, 1 if an error occured, 2 if exited</returns>
     private int parse() {
         
-        Console.Write($"\n[{DateTime.Now:HH:mm:ss}] \\> ");
+        // Console.Write($"\n[{DateTime.Now:HH:mm:ss}]: $ ");
+        ConsoleColors.printColoredTextHex($"\n[{DateTime.Now:HH:mm:ss}]: \x1B[1m$\x1B[22m ", (int)Colors.GRAY_5);
         
         string? command = Console.ReadLine();
 
@@ -80,13 +179,13 @@ public class CommandParser {
             return 1;
         }
         
-        (string progName, string commName) keywords = (input[0], input[1]);
-        Command? executedCommand = null;
+        (string commandName, string flagName) keywords = (input[0], input[1]);
+        Flag? executedCommand = null;
         
-        foreach (Program p in commands) {
-            if (p.programName == keywords.progName) {
-                foreach (Command c in p.commands) {
-                    if (c.commandName == keywords.commName) {
+        foreach (Command p in commands) {
+            if (p.commandName == keywords.commandName) {
+                foreach (Flag c in p.flags) {
+                    if (c.flagName == keywords.flagName) {
                         executedCommand = c;
                         break;
                     }
@@ -111,11 +210,37 @@ public class CommandParser {
 
         for (int i = 0; i < executedCommand.Value.args.Length; i++) {
             switch (executedCommand.Value.args[i]) {
-                case 1:
+                
+                case (int)ArgumentType.STRING: {
                     args[i] = input[i + 2];
                     break;
-                
-                case 2:
+                }
+
+                case (int)ArgumentType.SHORT: {
+                    try {
+                        args[i] = short.Parse(input[i + 2]);
+                    }
+                    catch {
+                        ConsoleColors.printlnColoredTextHex(
+                            $"Invalid argument at {i} ({input[i + 2]}, must be type of: short) !", (int)Colors.RED_5);
+                        return 1;
+                    }
+                    break;
+                }
+
+                case (int)ArgumentType.USHORT: {
+                    try {
+                        args[i] = ushort.Parse(input[i + 2]);
+                    }
+                    catch {
+                        ConsoleColors.printlnColoredTextHex(
+                            $"Invalid argument at {i} ({input[i + 2]}, must be type of: unsigned short) !", (int)Colors.RED_5);
+                        return 1;
+                    }
+                    break;
+                }
+
+                case (int)ArgumentType.INT: {
                     try {
                         args[i] = int.Parse(input[i + 2]);
                     }
@@ -125,8 +250,21 @@ public class CommandParser {
                         return 1;
                     }
                     break;
-                
-                case 3:
+                }
+
+                case (int)ArgumentType.UINT: {
+                    try {
+                        args[i] = uint.Parse(input[i + 2]);
+                    }
+                    catch {
+                        ConsoleColors.printlnColoredTextHex(
+                            $"Invalid argument at {i} ({input[i + 2]}, must be type of: unsigned int) !", (int)Colors.RED_5);
+                        return 1;
+                    }
+                    break;
+                }
+
+                case (int)ArgumentType.LONG: {
                     try {
                         args[i] = long.Parse(input[i + 2]);
                     }
@@ -136,8 +274,21 @@ public class CommandParser {
                         return 1;
                     }
                     break;
-                
-                case 4:
+                }
+
+                case (int)ArgumentType.ULONG: {
+                    try {
+                        args[i] = ulong.Parse(input[i + 2]);
+                    }
+                    catch {
+                        ConsoleColors.printlnColoredTextHex(
+                            $"Invalid argument at {i} ({input[i + 2]}, must be type of: unsigned long) !", (int)Colors.RED_5);
+                        return 1;
+                    }
+                    break;
+                }
+
+                case (int)ArgumentType.BOOL: {
                     if (input[i + 2] == "true") {
                         args[i] = true;
                     }
@@ -150,6 +301,7 @@ public class CommandParser {
                         return 1;
                     }
                     break;
+                }
             }
         }
 
@@ -162,23 +314,33 @@ public class CommandParser {
 /// <summary>
 /// struct for holding shell sub-commands
 /// </summary>
-/// <param name="programName">name of the command</param>
-/// <param name="commands">array of sub-commands</param>
-internal struct Program(string programName, Command[] commands) {
-    public readonly string programName = programName;
-    public readonly Command[] commands = commands;
+/// <param name="commandName">name of the command</param>
+/// <param name="flags">array of sub-commands</param>
+internal struct Command(string commandName, Flag[] flags) {
+    public readonly string commandName = commandName;
+    public readonly Flag[] flags = flags;
+    public readonly string? description = null;
+
+    public Command(string commandName, Flag[] flags, string? description = null) : this(commandName, flags) {
+        this.description = description;
+    }
 }
 
 /// <summary>
 /// struct holding command data and code
 /// </summary>
-/// <param name="commandName">name of the command</param>
+/// <param name="flagName">name of the command</param>
 /// <param name="args">arguments inputted into the shell behind the command</param>
 /// <param name="code">code that executes when run</param>
-internal struct Command(string commandName, int[] args, Action<object[]> code) {
-    public readonly string commandName = commandName;
+internal struct Flag(string flagName, int[] args, Action<object[]> code) {
+    public readonly string flagName = flagName;
     public readonly int[] args = args;
     public readonly Action<object[]> code = code;
+    public readonly string? description = null;
+
+    public Flag(string flagName, int[] args, Action<object[]> code, string? description = null) : this(flagName, args, code) {
+        this.description = description;
+    }
 }
 
 /// <summary>
@@ -186,7 +348,11 @@ internal struct Command(string commandName, int[] args, Action<object[]> code) {
 /// </summary>
 public enum ArgumentType {
     STRING = 1,
-    INT = 2,
-    LONG = 3,
-    BOOL = 4
+    SHORT = 2,
+    USHORT = 3,
+    INT = 4,
+    UINT = 5,
+    LONG = 6,
+    ULONG = 7,
+    BOOL = 8,
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VoxelsCoreSharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+261a943ada83043c5bc1143b8a69a7ad4f9a8823")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+964fdcb31ad062f4a60ca17cac82e3f3a359e72a")]
 [assembly: System.Reflection.AssemblyProductAttribute("VoxelsCoreSharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VoxelsCoreSharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
