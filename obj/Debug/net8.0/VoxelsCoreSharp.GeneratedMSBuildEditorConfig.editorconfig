@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VoxelsCoreSharp
-build_property.ProjectDir = C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\
+build_property.ProjectDir = C:\Users\michn\source\repos\Voxels2\VoxelsV2\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
