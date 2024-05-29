@@ -24,14 +24,11 @@ public static class Global {
     public static uint DISPLAY_HEIGHT = 1080;
     
     /// <summary>
-    /// color and depth map of rendered pixels<br/>
-    /// first (least significant) byte is for red channel,<br/>
-    /// second byte is for green channel,<br/>
-    /// third byte for blue,<br/>
-    /// 5 remaining bytes are for depth<br/>
+    /// color of rendered pixels<br/>
+    /// format: 0x0rgb
     /// please use bit operations to get or set any value
     /// </summary>
-    public static long[,] DISPLAY_COLORS = new long[DISPLAY_WIDTH, DISPLAY_HEIGHT];
+    public static int[,] DISPLAY_COLORS = new int[DISPLAY_WIDTH, DISPLAY_HEIGHT];
 
     /// <summary>
     /// field of view in degrees
@@ -188,5 +185,21 @@ public static class Global {
     /// </summary>
     public static readonly CommandParser COMMAND_PARSER = new();
 
-    public static SceneManager SCENE_MANAGER = new SceneManager();
+    /// <summary>
+    /// global scene manager
+    /// </summary>
+    public static SceneManager SCENE_MANAGER;
+
+    /// <summary>
+    /// sets up the scene manager
+    /// </summary>
+    public static void setupSceneManager() {
+        SCENE_MANAGER = new SceneManager();
+    }
+
+    /// <summary>
+    /// size of the loaded area in chunks <br/>
+    /// x to one side + 1 + x to the other side
+    /// </summary>
+    public static int CHUNK_LOADING_DISTANCE = 7;
 }

@@ -16,18 +16,18 @@ public class CommandParser {
     private static readonly Command[] commands = [
         new Command("world", [
             new Flag("-info", [], (object[] args) => Console.WriteLine(Global.WORLD_MANAGER.WorldFilePath)),
-            new Flag("-load", [(int)ArgumentType.STRING], (object[] args) => Console.WriteLine(args[0])),
+            new Flag("-load", [(int)EArgumentType.STRING], (object[] args) => Console.WriteLine(args[0])),
             new Flag("-save", [], (object[] args) => Console.WriteLine("closing"))
         ]),
         new Command("place", [
-            new Flag("-random", [(int)ArgumentType.STRING, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.LONG], 
+            new Flag("-random", [(int)EArgumentType.STRING, (int)EArgumentType.LONG, (int)EArgumentType.LONG, (int)EArgumentType.LONG], 
                 (object[] args) => Console.WriteLine("")),
-            new Flag("-leveled", [(int)ArgumentType.STRING, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.LONG, (int)ArgumentType.INT], 
+            new Flag("-leveled", [(int)EArgumentType.STRING, (int)EArgumentType.LONG, (int)EArgumentType.LONG, (int)EArgumentType.LONG, (int)EArgumentType.INT], 
                 (object[] args) => Console.WriteLine(""))
         ]),
         new Command("generate", [
             new Flag("-chunk", [], (object[] args) => Console.WriteLine("generating chunk...")),
-            new Flag("-world", [(int)ArgumentType.STRING], (object[] args) => Console.WriteLine("generating world..."))
+            new Flag("-world", [(int)EArgumentType.STRING], (object[] args) => Console.WriteLine("generating world..."))
         ]),
         new Command("help", [
             new Flag("-overall", [], (object[] args) => {
@@ -43,7 +43,7 @@ public class CommandParser {
             
             new Flag("-logo", [], (object[] args) => Voxels.printLogo(), "just prints the ascii art"),
             
-            new Flag("-flag", [(int)ArgumentType.STRING, (int)ArgumentType.STRING], (object[] args) => {
+            new Flag("-flag", [(int)EArgumentType.STRING, (int)EArgumentType.STRING], (object[] args) => {
                 foreach (Command c in commands) {
                     if (c.commandName == (string)args[0]) {
                         foreach (Flag f in c.flags) {
@@ -58,7 +58,7 @@ public class CommandParser {
                 ConsoleColors.printlnColoredTextHex("No matching flag found", (int)Colors.RED_5);
             }, "prints description of the inputted flag"),
             
-            new Flag("-command", [(int)ArgumentType.STRING], (object[] args) => {
+            new Flag("-command", [(int)EArgumentType.STRING], (object[] args) => {
                 foreach (Command c in commands) {
                     if (c.commandName == (string)args[0]) {
                         Console.WriteLine(c.description ?? "this does not have a description...");
@@ -70,7 +70,7 @@ public class CommandParser {
             }, "prints description of the inputted command")
         ]),
         new Command("setup", [
-            new Flag("-wm", [(int)ArgumentType.STRING], (object[] args) => Global.setupWorldManager(args[0].ToString()!), "sets up world manager"),
+            new Flag("-wm", [(int)EArgumentType.STRING], (object[] args) => Global.setupWorldManager(args[0].ToString()!), "sets up world manager"),
             new Flag("-sm", [], (object[] args) => {}),
         ], "sets up some of the tools"),
         
@@ -100,7 +100,7 @@ public class CommandParser {
                 ConsoleColors.printlnColoredTextHex("" + h, (int)Colors.GRAY_2);
             }),
             
-            new Flag("-wh", [(int)ArgumentType.USHORT, (int)ArgumentType.USHORT, (int)ArgumentType.UINT, (int)ArgumentType.UINT, (int)ArgumentType.BOOL], (object[] args) => {
+            new Flag("-wh", [(int)EArgumentType.USHORT, (int)EArgumentType.USHORT, (int)EArgumentType.UINT, (int)EArgumentType.UINT, (int)EArgumentType.BOOL], (object[] args) => {
                 VXWHeader h = new VXWHeader {
                     chunkSize = (ushort)args[0],
                     regionSize = (ushort)args[1],
@@ -211,12 +211,12 @@ public class CommandParser {
         for (int i = 0; i < executedCommand.Value.args.Length; i++) {
             switch (executedCommand.Value.args[i]) {
                 
-                case (int)ArgumentType.STRING: {
+                case (int)EArgumentType.STRING: {
                     args[i] = input[i + 2];
                     break;
                 }
 
-                case (int)ArgumentType.SHORT: {
+                case (int)EArgumentType.SHORT: {
                     try {
                         args[i] = short.Parse(input[i + 2]);
                     }
@@ -228,7 +228,7 @@ public class CommandParser {
                     break;
                 }
 
-                case (int)ArgumentType.USHORT: {
+                case (int)EArgumentType.USHORT: {
                     try {
                         args[i] = ushort.Parse(input[i + 2]);
                     }
@@ -240,7 +240,7 @@ public class CommandParser {
                     break;
                 }
 
-                case (int)ArgumentType.INT: {
+                case (int)EArgumentType.INT: {
                     try {
                         args[i] = int.Parse(input[i + 2]);
                     }
@@ -252,7 +252,7 @@ public class CommandParser {
                     break;
                 }
 
-                case (int)ArgumentType.UINT: {
+                case (int)EArgumentType.UINT: {
                     try {
                         args[i] = uint.Parse(input[i + 2]);
                     }
@@ -264,7 +264,7 @@ public class CommandParser {
                     break;
                 }
 
-                case (int)ArgumentType.LONG: {
+                case (int)EArgumentType.LONG: {
                     try {
                         args[i] = long.Parse(input[i + 2]);
                     }
@@ -276,7 +276,7 @@ public class CommandParser {
                     break;
                 }
 
-                case (int)ArgumentType.ULONG: {
+                case (int)EArgumentType.ULONG: {
                     try {
                         args[i] = ulong.Parse(input[i + 2]);
                     }
@@ -288,7 +288,7 @@ public class CommandParser {
                     break;
                 }
 
-                case (int)ArgumentType.BOOL: {
+                case (int)EArgumentType.BOOL: {
                     if (input[i + 2] == "true") {
                         args[i] = true;
                     }
@@ -346,7 +346,7 @@ internal struct Flag(string flagName, int[] args, Action<object[]> code) {
 /// <summary>
 /// types of arguments used for the shell
 /// </summary>
-public enum ArgumentType {
+public enum EArgumentType {
     STRING = 1,
     SHORT = 2,
     USHORT = 3,
@@ -354,5 +354,6 @@ public enum ArgumentType {
     UINT = 5,
     LONG = 6,
     ULONG = 7,
-    BOOL = 8,
+    FLOAT = 8,
+    BOOL = 9,
 }

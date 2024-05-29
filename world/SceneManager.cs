@@ -3,6 +3,8 @@
 // by KryKom 2024
 //
 
+using VoxelsCoreSharp.console;
+
 namespace VoxelsCoreSharp.world;
 
 /// <summary>
@@ -10,11 +12,40 @@ namespace VoxelsCoreSharp.world;
 /// </summary>
 public class SceneManager {
 
-    public List<Chunk> loadedChunks = new List<Chunk>();
-
+    private int[,] ChunkIndices = new int[Global.CHUNK_LOADING_DISTANCE * 2 + 1, Global.CHUNK_LOADING_DISTANCE * 2 + 1];
+    private List<Chunk> loadedChunks = new();
+    private bool active = false;
     
-    public void loadChunk(Chunk chunk) {
-        loadedChunks.Add(chunk);
+    public SceneManager() {
+        activate();
+        
+        
+    }
+
+    public void activate() {
+        if (Global.WORLD_MANAGER == null) {
+            active = false;
+            Debug.error("World Manager not set yet! Please set the world manager before setting up.");
+        }
+        else {
+            active = true;
+        }
+    }
+
+    /// <summary>
+    /// loads chunks that are supposed to be loaded
+    /// </summary>
+    public void update() {
+        
+    }
+    
+    /// <summary>
+    /// loads chunk to memory
+    /// </summary>
+    /// <param name="x">chunk x of the requested chunk</param>
+    /// <param name="y">chunk y of the requested chunk</param>
+    public void loadChunk(long x, long y) {
+        
     }
 
     public void unloadChunk(int x, int y) {
