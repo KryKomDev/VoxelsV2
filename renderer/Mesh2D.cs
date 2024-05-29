@@ -69,8 +69,8 @@ public class Mesh2D {
     public static void drawConvexPolygon((int x, int y)[] points, int color, ref long[,] destination) {
         
         // min and max height of the triangle
-        int minY = Int32.MaxValue;
-        int maxY = Int32.MinValue;
+        int minY = int.MaxValue;
+        int maxY = int.MinValue;
 
         // set the points
         for (int i = 0; i < points.Length; i++) {
@@ -85,17 +85,17 @@ public class Mesh2D {
         // [y, 0] -> lowest x (most left)
         // [y, 1] -> highest x (most right)
         int?[,] edges = new int?[height, 2];
-        
+
         // adds point to points[,]
-        Action<(int x, int y)> plot = p => {
+        void plot((int x, int y) p) {
             if (edges[p.y - minY, 0] == null || edges[p.y - minY, 0] > p.x) {
                 edges[p.y - minY, 0] = p.x;
-            } 
-            
+            }
+
             if (edges[p.y - minY, 1] == null || edges[p.y - minY, 1] < p.x) {
                 edges[p.y - minY, 1] = p.x;
             }
-        };  
+        }
 
         // generate edges of the triangle
         for (int i = 0; i < points.Length; i++) {
@@ -123,8 +123,8 @@ public class Mesh2D {
     public static void drawFastPolygon((int x, int y)[] points, int color, ref long[,] destination) {
         
         // min and max height of the triangle
-        int minY = Int32.MaxValue;
-        int maxY = Int32.MinValue;
+        int minY = int.MaxValue;
+        int maxY = int.MinValue;
 
         // set the points
         for (int i = 0; i < points.Length; i++) {

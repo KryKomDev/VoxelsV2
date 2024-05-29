@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krystof\\Desktop\\projects\\Voxels\\VoxelsCore\\VoxelsCoreSharp\\VoxelsCoreSharp.csproj": {}
+    "C:\\Users\\michn\\source\\repos\\Voxels2\\VoxelsV2\\VoxelsCoreSharp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krystof\\Desktop\\projects\\Voxels\\VoxelsCore\\VoxelsCoreSharp\\VoxelsCoreSharp.csproj": {
+    "C:\\Users\\michn\\source\\repos\\Voxels2\\VoxelsV2\\VoxelsCoreSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krystof\\Desktop\\projects\\Voxels\\VoxelsCore\\VoxelsCoreSharp\\VoxelsCoreSharp.csproj",
+        "projectUniqueName": "C:\\Users\\michn\\source\\repos\\Voxels2\\VoxelsV2\\VoxelsCoreSharp.csproj",
         "projectName": "VoxelsCoreSharp",
-        "projectPath": "C:\\Users\\krystof\\Desktop\\projects\\Voxels\\VoxelsCore\\VoxelsCoreSharp\\VoxelsCoreSharp.csproj",
-        "packagesPath": "C:\\Users\\krystof\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krystof\\Desktop\\projects\\Voxels\\VoxelsCore\\VoxelsCoreSharp\\obj\\",
+        "projectPath": "C:\\Users\\michn\\source\\repos\\Voxels2\\VoxelsV2\\VoxelsCoreSharp.csproj",
+        "packagesPath": "C:\\Users\\michn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\michn\\source\\repos\\Voxels2\\VoxelsV2\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\krystof\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\michn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

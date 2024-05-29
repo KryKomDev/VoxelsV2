@@ -9,7 +9,7 @@ public class Raycaster2D {
     private static int[,] field = new int[10, 10];
 
     public static void setField(int[,] field) {
-        Raycaster2D.field = Raycaster2D.field;
+        Raycaster2D.field = field;
     }
 
     public static (double x, double y) pointsToPath ((int x, int y) from, (int x, int y) to, int length) {
