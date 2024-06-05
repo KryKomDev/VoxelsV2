@@ -70,7 +70,7 @@ public class Bresenham3D {
     private static void generateByX((int x, int y, int z) p1, (int x, int y, int z) p2, bool srcFirst, Action<(int x, int y, int z)> plot) {
         
         // debug
-        ConsoleColors.printlnColoredTextHex("Generating by X", 0xe38100);
+        ConsoleColors.printlnColored("Generating by X", 0xe38100);
         Console.WriteLine($"src: {(srcFirst ? p1 : p2)}, to: {(!srcFirst ? p1 : p2)}");
 
         // calculate delta
@@ -138,7 +138,7 @@ public class Bresenham3D {
     /// <param name="plot">function called when a new point of the line is called</param>
     private static void generateByY((int x, int y, int z) p1, (int x, int y, int z) p2, bool srcFirst, Action<(int x, int y, int z)> plot) {
         
-        ConsoleColors.printlnColoredTextHex("Generating by Y", 0x03bd00);
+        ConsoleColors.printlnColored("Generating by Y", 0x03bd00);
         Console.WriteLine($"src: {(srcFirst ? p1 : p2)}, to: {(!srcFirst ? p1 : p2)}");
         
         int deltaX = p2.x - p1.x;
@@ -198,7 +198,7 @@ public class Bresenham3D {
     /// <param name="plot">function called when a new point of the line is called</param>
     private static void generateByZ((int x, int y, int z) p1, (int x, int y, int z) p2, bool srcFirst, Action<(int x, int y, int z)> plot) {
         
-        ConsoleColors.printlnColoredTextHex("Generating by Z", 0x0388fc);
+        ConsoleColors.printlnColored("Generating by Z", 0x0388fc);
         Console.WriteLine($"src: {(srcFirst ? p1 : p2)}, to: {(!srcFirst ? p1 : p2)}");
 
         int deltaX = p2.x - p1.x;

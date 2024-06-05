@@ -15,7 +15,7 @@ public static class Debug {
     /// <param name="s">desired string message</param>
     /// <param name="hideTime">hides time if true</param>
     public static void warn(string s, bool hideTime = false) {
-        ConsoleColors.printColoredTextHex(hideTime ? $"WARN: {s}\n" : $"[{DateTime.Now:HH:mm:ss}] WARN: {s}\n", (int)Colors.YELLOW_2);
+        ConsoleColors.printColored(hideTime ? $"WARN: {s}\n" : $"[{DateTime.Now:HH:mm:ss}] WARN: {s}\n", (int)Colors.YELLOW_2);
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public static class Debug {
     /// <param name="s">desired string message</param>
     /// <param name="hideTime">hides time if true</param>
     public static void error(string s, bool hideTime = false) {
-        ConsoleColors.printColoredTextHex(hideTime ? $"WARN: {s}\n" : $"[{DateTime.Now:HH:mm:ss}] ERROR: {s}\n", (int)Colors.RED_2);
+        ConsoleColors.printColored(hideTime ? $"WARN: {s}\n" : $"[{DateTime.Now:HH:mm:ss}] ERROR: {s}\n", (int)Colors.RED_2);
     }
 
     /// <summary>
@@ -33,6 +33,6 @@ public static class Debug {
     /// <param name="s">desired string message</param>
     /// <param name="hideTime">hides time if true</param>
     public static void info(string s, bool hideTime = false) {
-        ConsoleColors.printColoredTextHex(hideTime ? $"WARN: {s}\n" : $"[{DateTime.Now:HH:mm:ss}] INFO: {s}\n", (int)Colors.GREEN_3);
+        ConsoleColors.printColored(hideTime ? $"WARN: {s}\n" : $"[{DateTime.Now:HH:mm:ss}] INFO: {s}\n", (int)Colors.GREEN_3);
     }
 }

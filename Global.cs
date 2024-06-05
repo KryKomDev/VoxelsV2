@@ -163,7 +163,7 @@ public static class Global {
     /// </summary>
     public static void listAll() {
         Debug.info("Global variables:");
-        ConsoleColors.printlnColoredTextHex(
+        ConsoleColors.printlnColored(
             $"    display width: \x1B[1m{DISPLAY_WIDTH}\x1B[22m,\n" + 
             $"    display height: \x1B[1m{DISPLAY_HEIGHT}\x1B[22m,\n" + 
             $"    field of view: \x1B[1m{FOV}\x1B[22m,\n" + 

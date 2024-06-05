@@ -27,6 +27,9 @@ public static class Voxels {
 
         object?[] a = ArgumentParser.parse("12 123.3 \"asd asd\"", [new IntArgument(), new FloatArgument(), new StringArgument()]);
         
+        ConsoleColors.printlnColored("TESTING COLORS!", 0xff0088);
+        ConsoleColors.printlnColoredB("   ", 0xff0088);
+        
         printLogo();
 
         Global.COMMAND_PARSER.shell();
@@ -34,7 +37,7 @@ public static class Voxels {
     }
     
     public static void printLogo() {
-        ConsoleColors.printColoredTextHex("             _\n" +
+        ConsoleColors.printColored("             _\n" +
                                           "       _ _ /   \\ _ _\n" +
                                           "   _ /               \\ _\n" +
                                           " |   \\ _ _       _ _ /   |\n" +
@@ -45,7 +48,7 @@ public static class Voxels {
                                           "     \\ _ _   |   _ _ /\n" +
                                           "           \\ ! /\n\n"
             , 0x7ad380);
-        ConsoleColors.printlnColoredTextHex("        Voxels by:\n   KryKom & ZlomenyMesic\n", 0x4e8752);
+        ConsoleColors.printlnColored("        Voxels by:\n   KryKom & ZlomenyMesic\n", 0x4e8752);
         Console.WriteLine("============================\n");
     }
 }

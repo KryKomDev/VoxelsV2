@@ -55,7 +55,7 @@ public class CommandParser {
                     }
                 }
                 
-                ConsoleColors.printlnColoredTextHex("No matching flag found", (int)Colors.RED_5);
+                ConsoleColors.printlnColored("No matching flag found", (int)Colors.RED_5);
             }, "prints description of the inputted flag"),
             
             new Flag("-command", [(int)EArgumentType.STRING], (object[] args) => {
@@ -66,7 +66,7 @@ public class CommandParser {
                     }
                 }
                 
-                ConsoleColors.printlnColoredTextHex("No matching command found", (int)Colors.RED_5);
+                ConsoleColors.printlnColored("No matching command found", (int)Colors.RED_5);
             }, "prints description of the inputted command")
         ]),
         new Command("setup", [
@@ -78,26 +78,26 @@ public class CommandParser {
             new Flag("-close", [], (object[] args) => Global.WORLD_MANAGER.close()),
             new Flag("-validate", [], (object[] args) => {
                 if (Global.WORLD_MANAGER == null) {
-                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    ConsoleColors.printlnColored("World manager not set up yet!", (int)Colors.RED_5);
                     return;
                 }
                 if (Global.WORLD_MANAGER.validate() == 0) {
-                    ConsoleColors.printlnColoredTextHex("World file is the right format", (int)Colors.GREEN_3);
+                    ConsoleColors.printlnColored("World file is the right format", (int)Colors.GREEN_3);
                 }
                 else {
-                    ConsoleColors.printlnColoredTextHex("World file has incorrect format", (int)Colors.RED_5);
+                    ConsoleColors.printlnColored("World file has incorrect format", (int)Colors.RED_5);
                 }
             }),
             
             new Flag("-rh", [], (object[] args) => {
                 
                 if (Global.WORLD_MANAGER == null) {
-                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    ConsoleColors.printlnColored("World manager not set up yet!", (int)Colors.RED_5);
                     return;
                 }
                 
                 VXWHeader h = Global.WORLD_MANAGER.readHeader();
-                ConsoleColors.printlnColoredTextHex("" + h, (int)Colors.GRAY_2);
+                ConsoleColors.printlnColored("" + h, (int)Colors.GRAY_2);
             }),
             
             new Flag("-wh", [(int)EArgumentType.USHORT, (int)EArgumentType.USHORT, (int)EArgumentType.UINT, (int)EArgumentType.UINT, (int)EArgumentType.BOOL], (object[] args) => {
@@ -110,7 +110,7 @@ public class CommandParser {
                 };
 
                 if (Global.WORLD_MANAGER == null) {
-                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    ConsoleColors.printlnColored("World manager not set up yet!", (int)Colors.RED_5);
                     return;
                 }
                 
@@ -119,7 +119,7 @@ public class CommandParser {
             
             new Flag("-reset", [], (object[] args) => {
                 if (Global.WORLD_MANAGER == null) {
-                    ConsoleColors.printlnColoredTextHex("World manager not set up yet!", (int)Colors.RED_5);
+                    ConsoleColors.printlnColored("World manager not set up yet!", (int)Colors.RED_5);
                     return;
                 }
                 
@@ -159,7 +159,7 @@ public class CommandParser {
     private int parse() {
         
         // Console.Write($"\n[{DateTime.Now:HH:mm:ss}]: $ ");
-        ConsoleColors.printColoredTextHex($"\n[{DateTime.Now:HH:mm:ss}]: \x1B[1m$\x1B[22m ", (int)Colors.GRAY_5);
+        ConsoleColors.printColored($"\n[{DateTime.Now:HH:mm:ss}]: \x1B[1m$\x1B[22m ", (int)Colors.GRAY_5);
         
         string? command = Console.ReadLine();
 
@@ -175,7 +175,7 @@ public class CommandParser {
         string[] input = command.Split(' ');
 
         if (input.Length < 2) {
-            ConsoleColors.printlnColoredTextHex($"Invalid number of keywords ({input.Length}, must be 2) !", (int)Colors.RED_5);
+            ConsoleColors.printlnColored($"Invalid number of keywords ({input.Length}, must be 2) !", (int)Colors.RED_5);
             return 1;
         }
         
@@ -195,14 +195,14 @@ public class CommandParser {
         }
 
         if (executedCommand == null) {
-            ConsoleColors.printlnColoredTextHex("Invalid command name!", (int)Colors.RED_5);
+            ConsoleColors.printlnColored("Invalid command name!", (int)Colors.RED_5);
             return 1;
         }
 
         Action<object[]> lambda = executedCommand.Value.code;
 
         if (executedCommand.Value.args.Length != input.Length - 2) {
-            ConsoleColors.printlnColoredTextHex($"Invalid number of arguments ({input.Length - 2}, must be {executedCommand.Value.args.Length}) !", (int)Colors.RED_5);
+            ConsoleColors.printlnColored($"Invalid number of arguments ({input.Length - 2}, must be {executedCommand.Value.args.Length}) !", (int)Colors.RED_5);
             return 1;
         }
 
@@ -221,7 +221,7 @@ public class CommandParser {
                         args[i] = short.Parse(input[i + 2]);
                     }
                     catch {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: short) !", (int)Colors.RED_5);
                         return 1;
                     }
@@ -233,7 +233,7 @@ public class CommandParser {
                         args[i] = ushort.Parse(input[i + 2]);
                     }
                     catch {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: unsigned short) !", (int)Colors.RED_5);
                         return 1;
                     }
@@ -245,7 +245,7 @@ public class CommandParser {
                         args[i] = int.Parse(input[i + 2]);
                     }
                     catch {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: int) !", (int)Colors.RED_5);
                         return 1;
                     }
@@ -257,7 +257,7 @@ public class CommandParser {
                         args[i] = uint.Parse(input[i + 2]);
                     }
                     catch {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: unsigned int) !", (int)Colors.RED_5);
                         return 1;
                     }
@@ -269,7 +269,7 @@ public class CommandParser {
                         args[i] = long.Parse(input[i + 2]);
                     }
                     catch {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: long) !", (int)Colors.RED_5);
                         return 1;
                     }
@@ -281,7 +281,7 @@ public class CommandParser {
                         args[i] = ulong.Parse(input[i + 2]);
                     }
                     catch {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: unsigned long) !", (int)Colors.RED_5);
                         return 1;
                     }
@@ -296,7 +296,7 @@ public class CommandParser {
                         args[i] = false;
                     }
                     else {
-                        ConsoleColors.printlnColoredTextHex(
+                        ConsoleColors.printlnColored(
                             $"Invalid argument at {i} ({input[i + 2]}, must be type of: bool) !", (int)Colors.RED_5);
                         return 1;
                     }
