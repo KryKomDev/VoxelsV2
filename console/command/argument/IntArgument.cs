@@ -13,14 +13,18 @@ public class IntArgument : ArgumentType {
     public override object value { get; protected set; } = 0;
     private readonly int min;
     private readonly int max;
+    
+    public override string description { get; protected set; }
 
-    public IntArgument(int min = Int32.MinValue, int max = Int32.MaxValue) {
+    public IntArgument(int min = Int32.MinValue, int max = Int32.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private IntArgument(int value) {
+    private IntArgument(int value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override IntArgument? parse(string raw) {
@@ -38,7 +42,7 @@ public class IntArgument : ArgumentType {
             }
 
             value = output; 
-            return new IntArgument(value: (int)value);
+            return new IntArgument((int)value, description);
         }
         catch (Exception e) {
             return null;
@@ -56,14 +60,18 @@ public class UIntArgument : ArgumentType {
     public override object value { get; protected set; } = 0;
     private readonly uint min;
     private readonly uint max;
+    
+    public override string description { get; protected set; }
 
-    public UIntArgument(uint min = UInt32.MinValue, uint max = UInt32.MaxValue) {
+    public UIntArgument(uint min = UInt32.MinValue, uint max = UInt32.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private UIntArgument(uint value) {
+    private UIntArgument(uint value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override UIntArgument? parse(string raw) {
@@ -81,7 +89,7 @@ public class UIntArgument : ArgumentType {
             }
 
             value = output;
-            return new UIntArgument(value: (uint)value);
+            return new UIntArgument((uint)value, description);
         }
         catch (Exception e) {
             return null;

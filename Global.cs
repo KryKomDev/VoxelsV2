@@ -4,6 +4,7 @@
 //
 
 using VoxelsCoreSharp.console;
+using VoxelsCoreSharp.console.command;
 using VoxelsCoreSharp.world;
 
 namespace VoxelsCoreSharp;
@@ -12,6 +13,13 @@ namespace VoxelsCoreSharp;
 /// contains global variables and settings
 /// </summary>
 public static class Global {
+
+    /// <summary>
+    /// static constructor, called only once
+    /// </summary>
+    static Global() {
+        registerCommands();
+    }
 
     /// <summary>
     /// width of the rendered area in pixels
@@ -181,10 +189,14 @@ public static class Global {
     }
 
     /// <summary>
-    /// global shell command parser
+    /// global shell
     /// </summary>
-    public static readonly CommandParser COMMAND_PARSER = new();
+    public static readonly Shell SHELL = new();
 
+    public static void registerCommands() {
+        CommandRegistry.registerCommand(WorldManager.WM);
+    }
+    
     /// <summary>
     /// global scene manager
     /// </summary>

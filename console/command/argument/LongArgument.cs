@@ -14,13 +14,17 @@ public class LongArgument : ArgumentType {
     private readonly long min;
     private readonly long max;
     
-    public LongArgument(long min = long.MinValue, long max = long.MaxValue) {
+    public override string description { get; protected set; }
+
+    public LongArgument(long min = long.MinValue, long max = long.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private LongArgument(long value) {
+    private LongArgument(long value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override LongArgument? parse(string raw) {
@@ -38,7 +42,7 @@ public class LongArgument : ArgumentType {
             }
 
             value = output;
-            return new LongArgument(value: (long)value);
+            return new LongArgument((long)value, description);
         }
         catch (Exception e) {
             return null;
@@ -57,13 +61,17 @@ public class ULongArgument : ArgumentType {
     private readonly ulong min;
     private readonly ulong max;
     
-    public ULongArgument(ulong min = ulong.MinValue, ulong max = ulong.MaxValue) {
+    public override string description { get; protected set; }
+
+    public ULongArgument(ulong min = ulong.MinValue, ulong max = ulong.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private ULongArgument(ulong value) {
+    private ULongArgument(ulong value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override ULongArgument? parse(string raw) {
@@ -81,7 +89,7 @@ public class ULongArgument : ArgumentType {
             }
 
             value = output;
-            return new ULongArgument(value: (ulong)value);
+            return new ULongArgument((ulong)value, description);
         }
         catch (Exception e) {
             return null;

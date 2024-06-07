@@ -15,4 +15,6 @@ public abstract class ArgumentType {
     public abstract ArgumentType? parse(string raw);
 
     public abstract string type();
+    
+    public abstract string description { get; protected set; }
 }

@@ -12,18 +12,21 @@ public class BoolArgument : ArgumentType {
 
     public override object value { get; protected set; } = false;
 
-    public BoolArgument() {
-        
+    public override string description { get; protected set; }
+
+    public BoolArgument(string description = "") {
+        this.description = description;
     }
 
-    private BoolArgument(bool value) {
+    private BoolArgument(bool value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override BoolArgument? parse(string raw) {
         try {
             value = bool.Parse(raw);
-            return new BoolArgument((bool)value);
+            return new BoolArgument((bool)value, description);
         }
         catch (Exception e) {
             return null;

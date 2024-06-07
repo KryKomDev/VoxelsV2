@@ -4,6 +4,8 @@
 //
 
 using VoxelsCoreSharp.console;
+using VoxelsCoreSharp.console.command;
+using VoxelsCoreSharp.console.command.argument;
 
 namespace VoxelsCoreSharp.world;
 
@@ -12,6 +14,14 @@ namespace VoxelsCoreSharp.world;
 /// </summary>
 public class WorldManager {
 
+    public static readonly Command WM = new Command("wm", [new StringArgument("tool_name")], (object[] args) => {
+        if ((string)args[0] == "setup") {
+            VXWHeader header = new VXWHeader();
+
+            Console.Write("Enter ");
+        }
+    }, "sets up important generator and display tools");
+    
     private string worldFilePath { get; set; }
     public string WorldFilePath => worldFilePath;
 

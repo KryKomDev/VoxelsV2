@@ -13,14 +13,18 @@ public class FloatArgument : ArgumentType {
     public override object value { get; protected set; } = 0f;
     private readonly float min;
     private readonly float max;
+    
+    public override string description { get; protected set; }
 
-    public FloatArgument(float min = float.MinValue, float max = float.MaxValue) {
+    public FloatArgument(float min = float.MinValue, float max = float.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private FloatArgument(float value) {
+    private FloatArgument(float value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override FloatArgument? parse(string raw) {
@@ -40,7 +44,7 @@ public class FloatArgument : ArgumentType {
             }
 
             value = output;
-            return new FloatArgument(value: (float)value);
+            return new FloatArgument((float)value, description);
         }
         catch (Exception e) {
             return null;

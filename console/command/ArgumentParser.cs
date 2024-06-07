@@ -3,7 +3,9 @@
 // by KryKom 2024
 //
 
-namespace VoxelsCoreSharp.console.command.argument;
+using VoxelsCoreSharp.console.command.argument;
+
+namespace VoxelsCoreSharp.console.command;
 
 /// <summary>
 /// command argument separator and parser
@@ -43,7 +45,7 @@ public static class ArgumentParser {
                 s += raw[i];
             }
         }
-
+        
         return args.ToArray();
     }
 
@@ -65,8 +67,6 @@ public static class ArgumentParser {
         object[] output = new object[args.Length];
 
         for (int i = 0; i < args.Length; i++) {
-
-            Console.WriteLine(args[i]);
             
             ArgumentType? a = arguments[i].parse(args[i]);
             

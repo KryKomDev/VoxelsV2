@@ -6,6 +6,7 @@
 // NOTE: use 'git diff --stat 4b825dc642cb6eb9a060e54bf8d69288fbee4904' to count lines
 
 using VoxelsCoreSharp.console;
+using VoxelsCoreSharp.console.command;
 using VoxelsCoreSharp.console.command.argument;
 using VoxelsCoreSharp.world;
 
@@ -31,9 +32,10 @@ public static class Voxels {
         ConsoleColors.printlnColoredB("   ", 0xff0088);
         
         printLogo();
-
-        Global.COMMAND_PARSER.shell();
         
+        // Global.COMMAND_PARSER.shell();
+        
+        Global.SHELL.start();
     }
     
     public static void printLogo() {

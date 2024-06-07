@@ -15,14 +15,18 @@ public class ShortArgument : ArgumentType {
     public override object value { get; protected set; } = (short)0;
     private readonly short min;
     private readonly short max;
+    
+    public override string description { get; protected set; }
 
-    public ShortArgument(short min = short.MinValue, short max = short.MaxValue) {
+    public ShortArgument(short min = short.MinValue, short max = short.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private ShortArgument(short value) {
+    private ShortArgument(short value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override ShortArgument? parse(string raw) {
@@ -40,7 +44,7 @@ public class ShortArgument : ArgumentType {
             }
 
             value = output;
-            return new ShortArgument(value: (short)value);
+            return new ShortArgument((short)value, description);
         }
         catch (Exception e) {
             return null;
@@ -58,14 +62,18 @@ public class UShortArgument : ArgumentType {
     public override object value { get; protected set; } = (ushort)0;
     private readonly ushort min;
     private readonly ushort max;
+    
+    public override string description { get; protected set; }
 
-    public UShortArgument(ushort min = ushort.MinValue, ushort max = ushort.MaxValue) {
+    public UShortArgument(ushort min = ushort.MinValue, ushort max = ushort.MaxValue, string description = "") {
         this.min = min;
         this.max = max;
+        this.description = description;
     }
 
-    private UShortArgument(ushort value) {
+    private UShortArgument(ushort value, string description) {
         this.value = value;
+        this.description = description;
     }
     
     public override UShortArgument? parse(string raw) {
@@ -83,7 +91,7 @@ public class UShortArgument : ArgumentType {
             }
 
             value = output;
-            return new UShortArgument(value: (ushort)value);
+            return new UShortArgument((ushort)value, description);
         }
         catch (Exception e) {
             return null;

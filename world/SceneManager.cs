@@ -12,7 +12,7 @@ namespace VoxelsCoreSharp.world;
 /// </summary>
 public class SceneManager {
 
-    private int[,] ChunkIndices = new int[Global.CHUNK_LOADING_DISTANCE * 2 + 1, Global.CHUNK_LOADING_DISTANCE * 2 + 1];
+    private int[,] chunkIndices = new int[Global.CHUNK_LOADING_DISTANCE * 2 + 1, Global.CHUNK_LOADING_DISTANCE * 2 + 1];
     private List<Chunk> loadedChunks = new();
     private bool active = false;
     
