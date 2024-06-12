@@ -28,3 +28,7 @@ C:\Users\michn\source\repos\Voxels2\VoxelsV2\obj\Debug\net8.0\refint\VoxelsCoreS
 C:\Users\michn\source\repos\Voxels2\VoxelsV2\obj\Debug\net8.0\VoxelsCoreSharp.pdb
 C:\Users\michn\source\repos\Voxels2\VoxelsV2\obj\Debug\net8.0\VoxelsCoreSharp.genruntimeconfig.cache
 C:\Users\michn\source\repos\Voxels2\VoxelsV2\obj\Debug\net8.0\ref\VoxelsCoreSharp.dll
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\Commandier.dll
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\bin\Debug\net8.0\Commandier.pdb
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCoreSharp.csproj.AssemblyReference.cache
+C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\obj\Debug\net8.0\VoxelsCo.4A28CCC5.Up2Date

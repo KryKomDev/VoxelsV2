@@ -11,4 +11,10 @@
       <Folder Include="generator\feature\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Commandier">
+        <HintPath>..\..\..\Libs\Commandier\bin\Release\net8.0\Commandier.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

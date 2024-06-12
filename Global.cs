@@ -3,9 +3,12 @@
 // by KryKom 2024
 //
 
-using VoxelsCoreSharp.console;
+using Commandier;
 using VoxelsCoreSharp.console.command;
 using VoxelsCoreSharp.world;
+using Colors = VoxelsCoreSharp.console.Colors;
+using ConsoleColors = VoxelsCoreSharp.console.ConsoleColors;
+using Debug = VoxelsCoreSharp.console.Debug;
 
 namespace VoxelsCoreSharp;
 

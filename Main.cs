@@ -9,6 +9,7 @@ using VoxelsCoreSharp.console;
 using VoxelsCoreSharp.console.command;
 using VoxelsCoreSharp.console.command.argument;
 using VoxelsCoreSharp.world;
+using Command = Commandier.Command;
 
 namespace VoxelsCoreSharp;
 
@@ -25,8 +26,6 @@ public static class Voxels {
                           "    ████░░      ████░░  ████░░    ████████░░    ████░░          ████░░                  ████░░\n" +
                           "    ████░░        ████████░░    ████░░  ████░░  ████████████░░  ████████████░░  ██████████░░\n\n");
         */
-
-        object?[] a = ArgumentParser.parse("12 123.3 \"asd asd\"", [new IntArgument(), new FloatArgument(), new StringArgument()]);
         
         ConsoleColors.printlnColored("TESTING COLORS!", 0xff0088);
         ConsoleColors.printlnColoredB("   ", 0xff0088);

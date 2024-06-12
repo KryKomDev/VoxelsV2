@@ -3,9 +3,10 @@
 // by KryKom 2024
 //
 
-using VoxelsCoreSharp.console;
+using Commandier;
 using VoxelsCoreSharp.console.command;
 using VoxelsCoreSharp.console.command.argument;
+using Debug = VoxelsCoreSharp.console.Debug;
 
 namespace VoxelsCoreSharp.world;
 
