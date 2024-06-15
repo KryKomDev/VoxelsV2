@@ -2,7 +2,10 @@
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Ckrystof_005CDesktop_005Cprojects_005CLibs_005CCommandier_005Cbin_005CRelease_005Cnet8_002E0_005CCommandier_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Ckrystof_005CDesktop_005Cprojects_005CLibs_005CCommandier_005Cbin_005CRelease_005Cnet8_002E0_005CCommandier_002Epdb/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Ckrystof_005CDesktop_005Cprojects_005CLibs_005CCommandier_005CCommandier_002Esln/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Ckrystof_005CDesktop_005Cprojects_005CVoxels_005CVoxelsCore_005CVoxelsCoreSharp_005Clibs_005CCommandier_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Ckrystof_005CDesktop_005Cprojects_005CVoxels_005CVoxelsCore_005CVoxelsCoreSharp_005Clibs_005CKolors_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.1\ref\net8.0\mscorlib.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\krystof\Desktop\projects\Voxels\VoxelsCore\VoxelsCoreSharp\libs\Commandier.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=subchunk/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

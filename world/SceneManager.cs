@@ -3,7 +3,7 @@
 // by KryKom 2024
 //
 
-using VoxelsCoreSharp.console;
+using Kolors;
 
 namespace VoxelsCoreSharp.world;
 

@@ -5,6 +5,7 @@
 
 // Original
 
+using Kolors;
 using VoxelsCoreSharp.console;
 
 namespace VoxelsCoreSharp.maths;

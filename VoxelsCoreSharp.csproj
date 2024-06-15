@@ -15,6 +15,9 @@
       <Reference Include="Commandier">
         <HintPath>..\..\..\Libs\Commandier\bin\Release\net8.0\Commandier.dll</HintPath>
       </Reference>
+      <Reference Include="Kolors">
+        <HintPath>libs\Kolors.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
