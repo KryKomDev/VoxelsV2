@@ -7,9 +7,6 @@
 
 using Commandier;
 using Kolors;
-using VoxelsCoreSharp.console;
-using VoxelsCoreSharp.console.command;
-using VoxelsCoreSharp.console.command.argument;
 using VoxelsCoreSharp.world;
 using Command = Commandier.Command;
 

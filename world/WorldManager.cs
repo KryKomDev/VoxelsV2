@@ -4,8 +4,8 @@
 //
 
 using Commandier;
+using Commandier.argument;
 using Kolors;
-using VoxelsCoreSharp.console.command.argument;
 
 namespace VoxelsCoreSharp.world;
 

@@ -1,0 +1,5 @@
+namespace VoxelsCoreSharp.world.voxelTypes;
+
+public class StairsVoxel {
+    
+}
