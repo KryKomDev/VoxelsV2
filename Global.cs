@@ -5,6 +5,7 @@
 
 using Commandier;
 using Kolors;
+using VoxelsCoreSharp.generator.terrain.biome;
 using VoxelsCoreSharp.world;
 
 namespace VoxelsCoreSharp;
@@ -208,10 +209,43 @@ public static class Global {
     public static void setupSceneManager() {
         SCENE_MANAGER = new SceneManager();
     }
-
+    
     /// <summary>
     /// size of the loaded area in chunks <br/>
     /// x to one side + 1 + x to the other side
     /// </summary>
     public static int CHUNK_LOADING_DISTANCE = 7;
+
+    // --- --- --- --- --- ---
+
+    /// <summary>
+    /// holds global generator data 
+    /// </summary>
+    public static class Generator {
+        
+        /// <summary>
+        /// global generation seed
+        /// </summary>
+        public static int SEED = 0;
+        
+        /// <summary>
+        /// biome points set by the user
+        /// </summary>
+        public static readonly List<(int x, int y, string biomeId)> BIOME_POINTS = new();
+
+        /// <summary>
+        /// size of cell noise grid unit (in chunks), used in biome generation 
+        /// </summary>
+        public static int BIOME_POINT_PADDING = 16;
+        
+        public enum WorldPresets {
+            NORMAL = 0,
+            SINGLE_BIOME = 1,
+            SUPERFLAT = 2,
+            AMPLIFIED = 3,
+            LARGE_BIOMES = 4,
+            ART = 5,
+            VOID = 6
+        }
+    }
 }

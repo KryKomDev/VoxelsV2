@@ -13,21 +13,18 @@ public class VoxelRegistry {
     
     private static readonly List<Voxel> registry = new();
 
-    public static Voxel register(string id, MaterialColor color) {
+    public static Voxel register(string id, Voxel voxel) {
+
+        voxel.id = id;
+        
         foreach (Voxel v in registry) {
             if (v.id == id) {
                 Debug.error($"Could not add voxel \'{id}\' to the registry! Voxel with the same name already exists.");
                 return v;
             }
         }
-
-        Voxel a = new Voxel(id, color);
-        registry.Add(a);
-        return a;
+        
+        registry.Add(voxel);
+        return voxel;
     }
-
-    public static readonly Voxel DIRT = register("minecraft:dirt", MaterialColor.DIRT);
-    public static readonly Voxel GRASS = register("minecraft:grass", MaterialColor.GRASS);
-    public static readonly Voxel STONE = register("minecraft:stone", MaterialColor.STONE);
-    
 }

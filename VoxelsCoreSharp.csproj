@@ -8,16 +8,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="generator\feature\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Reference Include="Commandier">
         <HintPath>..\..\..\Libs\Commandier\bin\Release\net8.0\Commandier.dll</HintPath>
+      </Reference>
+      <Reference Include="FastNoiseLite">
+        <HintPath>libs\FastNoiseLite.dll</HintPath>
       </Reference>
       <Reference Include="Kolors">
         <HintPath>libs\Kolors.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="generator\feature\structure\" />
     </ItemGroup>
 
 </Project>
