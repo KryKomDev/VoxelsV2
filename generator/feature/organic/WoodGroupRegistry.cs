@@ -1,22 +1,10 @@
 using Kolors;
+using VoxelsCoreSharp.data;
+using VoxelsCoreSharp.world;
 
 namespace VoxelsCoreSharp.generator.feature.organic;
 
-public static class WoodGroupRegistry {
-    public static readonly List<WoodGroup> registry = new();
-    
-    private static WoodGroup register(string id, WoodGroup group) {
-        foreach (var b in registry) {
-            if (b.id == id) {
-                Debug.error($"Could not register biome '{id}', because a biome with the same id already exists!");
-                return b;
-            }
-        }
+public class WoodGroupRegistry : Registry<WoodGroup> { // TODO: do we need this?
 
-        group.id = id;
-        registry.Add(group);
-        return group;
-    }
-
-    public static WoodGroup OAK = register("oak", new WoodGroup());
+    // public static WoodGroup OAK = register("oak", new WoodGroup(VoxelRegistry.OAK_LOG, VoxelRegistry.STRIPPED_OAK_LOG, ));
 }

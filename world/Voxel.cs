@@ -1,10 +1,19 @@
+using VoxelsCoreSharp.data;
 using VoxelsCoreSharp.world.minecraft;
 using VoxelsCoreSharp.world.minecraft.block;
 
 namespace VoxelsCoreSharp.world;
 
-public class Voxel(string id, MaterialColor color) {
+public class Voxel : RegistryObject {
+    
+    public readonly int color;
 
-    public readonly string id = id;
-    public readonly int color = (int)color;
+    public Voxel() {
+        color = (int)MaterialColor.NONE;
+    }
+
+    public Voxel(MaterialColor color) {
+        this.color = (int)color;
+    }
+
 }

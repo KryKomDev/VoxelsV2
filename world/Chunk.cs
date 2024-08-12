@@ -3,12 +3,57 @@
 // by KryKom 2024
 //
 
+using Commandier;
+using Commandier.argument;
+using Kolors;
+using VoxelsCoreSharp.libs;
+
 namespace VoxelsCoreSharp.world;
+
+/// <summary>
+/// region struct, holds data of a larger part of a world 
+/// </summary>
+public class Region {
+    
+    /// <summary>
+    /// array of sub-chunks, content of the chunk
+    /// </summary>
+    public Chunk[,] content = new Chunk[Global.REGION_SIZE, Global.REGION_SIZE];
+    
+    /// <summary>
+    /// chunk x position of the chunk
+    /// </summary>
+    public long x = 0;
+    
+    /// <summary>
+    /// chunk y position of the chunk
+    /// </summary>
+    public long y = 0;
+
+    /// <summary>
+    /// calculates constant biome point value of this chunk, based on <see cref="computeBPPos"/>
+    /// </summary>
+    /// <returns>relative x and y coordinates of the point</returns>
+    public (int x, int y) getBPPos() {
+        return computeBPPos(x, y);
+    }
+
+    /// <summary>
+    /// calculates constant biome point value of a region, based on hashing a string with position and seed, uses <see cref="Hash.GetHashCode(string)"/>
+    /// </summary>
+    /// <param name="x">x of the region</param>
+    /// <param name="y">y of the region</param>
+    /// <returns>relative x and y coordinates of the point</returns>
+    public static (int x, int y) computeBPPos(long x, long y) {
+        ushort hash = (ushort)$"r.{x}.{y}.{Global.Generator.SEED}".GetHashCode();
+        return (hash >> 8, ((ushort)(hash << 8)) >> 8);
+    }
+}
 
 /// <summary>
 /// chunk struct, holds data of a part of a world
 /// </summary>
-public struct Chunk() {
+public class Chunk {
     
     /// <summary>
     /// array of sub-chunks, content of the chunk
@@ -28,8 +73,7 @@ public struct Chunk() {
     /// <summary>
     /// overall climate of the chunk
     /// </summary>
-    /// TODO: see also...
-    public byte climateBiome = 0;
+    public byte climateBiome = 0; // TODO this shall not be
 
     /// <summary>
     /// holds data about the chunk generation state <br/>

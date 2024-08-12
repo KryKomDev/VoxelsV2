@@ -7,6 +7,11 @@
 
 using Commandier;
 using Kolors;
+using VoxelsCoreSharp.generator.files.config;
+using VoxelsCoreSharp.generator.files.data;
+using VoxelsCoreSharp.generator.terrain.height;
+using VoxelsCoreSharp.test.gen;
+using VoxelsCoreSharp.world;
 
 namespace VoxelsCoreSharp;
 
@@ -23,17 +28,23 @@ public static class VoxelsCoreSharp {
         //                   "    ████░░      ████░░  ████░░    ████████░░    ████░░          ████░░                  ████░░\n" +
         //                   "    ████░░        ████████░░    ████░░  ████░░  ████████████░░  ████████████░░  ██████████░░\n\n");
         
-        
         // ConsoleColors.printlnColored("TESTING COLORS!", 0xff0088);
         // ConsoleColors.printlnColoredB("   ", 0xff0088);
         //
         // printLogo();
-        printLogo2();
+        Debug.debugLevel = Debug.DebugLevel.ALL;
+
+        HeightMapTest.run();
         
-        
-        // Global.COMMAND_PARSER.shell();
-        
-        Shell.SHELL.start();
+        // Global.registerCommands();
+        //
+        // Global.WORLD_DIR_PATH = "C:\\Users\\krystof\\Desktop\\projects\\Voxels\\VoxelsCore\\VoxelsCoreSharp\\world\\test";
+        //
+        // Debug.debugLevel = Debug.DebugLevel.ALL;
+        // // Global.COMMAND_PARSER.shell();
+        //
+        // Shell.onStart = printLogo2;
+        // Shell.SHELL.start();
         // Global.SHELL.start();
     }
     
@@ -54,6 +65,6 @@ public static class VoxelsCoreSharp {
     }
 
     public static void printLogo2() {
-        ConsoleColors.printColored("\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2591       \u2588\u2588\u2588\u2588\u2591\n\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591   \u2588\u2588\u2591   \u2588\u2588\u2591     \u2588\u2588\u2591       \u2588\u2588\u2591\n  \u2588\u2588\u2591   \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2591\n                 by KryKom\n", Shell.PALETTE.colors[3]);
+        ConsoleColors.printColored("\n  \x1B[1m\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2591       \u2588\u2588\u2588\u2588\u2591\n  \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591   \u2588\u2588\u2591   \u2588\u2588\u2591     \u2588\u2588\u2591       \u2588\u2588\u2591\n    \u2588\u2588\u2591   \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2588\u2588\u2591 \u2588\u2588\u2588\u2588\u2591\n                   by KryKom\n", Shell.PALETTE.colors[3]);
     }
 }

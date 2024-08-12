@@ -1,5 +1,7 @@
 namespace VoxelsCoreSharp.world;
 
+// DISCONTINUED !!!
+
 public enum VoxelType {
     UNKNOWN = 0, // can be overwritten by a structure
     AIR = 1,  // cannot be overwritten by a structure

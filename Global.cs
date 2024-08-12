@@ -14,14 +14,8 @@ namespace VoxelsCoreSharp;
 /// contains global variables and settings
 /// </summary>
 public static class Global {
-
-    /// <summary>
-    /// static constructor, called only once
-    /// </summary>
-    static Global() {
-        registerCommands();
-    }
-
+    
+    /* TODO: until we get the launcher start minecraft with proper arguments (or build our own renderer) this is unnecessary
     /// <summary>
     /// width of the rendered area in pixels
     /// </summary>
@@ -51,47 +45,53 @@ public static class Global {
     /// y-axis: east / west<br/>
     /// z-axis: up / down
     /// </summary>
-    public static (long x, long y, long z) PLAYER_POS = (0, 0, 0);
-
+    public static (long x, long y, long z) PLAYER_POS = (0, 0, 0); */
+    
     /// <summary>
     /// height limit in subchunk size (16)
     /// </summary>
-    public static uint HEIGHT_LIMIT = 16;
+    public static int HEIGHT_LIMIT = 32;
 
     /// <summary>
     /// size of a chunk in voxels
     /// </summary>
-    public static ushort CHUNK_SIZE = 16;
+    public const int CHUNK_SIZE = 16;
 
     /// <summary>
     /// size of a region in chunks
     /// </summary>
-    public static ushort REGION_SIZE = 16;
+    public const int REGION_SIZE = 16;
 
-    /// <summary>
-    /// size of the world in regions
-    /// </summary>
-    public static uint WORLD_SIZE = 64;
+    // /// <summary>
+    // /// size of the world in regions
+    // /// </summary>
+    // public static uint WORLD_SIZE = 64; // TODO delete Global.WORLD_SIZE
 
     /// <summary>
     /// dimensions of biomes; 2d -> false, 3d -> true
     /// </summary>
-    public static bool BIOME_DIMENSIONS = true;
+    public static bool BIOME_DIMENSIONS = true; // TODO what to do with this? 
+
+    // /// <summary>
+    // /// global world manager
+    // /// </summary>
+    // public static WorldManager WORLD_MANAGER;
+
+    // /// <summary>
+    // /// sets up the global WorldManager (Global.WORLD_MANAGER)
+    // /// </summary>
+    // /// <param name="worldFilePath"></param>
+    // public static void setupWorldManager(string worldFilePath) {
+    //     WORLD_MANAGER.close();
+    //     WORLD_MANAGER = new WorldManager(worldFilePath);
+    // }
 
     /// <summary>
-    /// global world manager
+    /// the world folder path
     /// </summary>
-    public static WorldManager WORLD_MANAGER;
+    public static string WORLD_DIR_PATH = "";
 
-    /// <summary>
-    /// sets up the global WorldManager (Global.WORLD_MANAGER)
-    /// </summary>
-    /// <param name="worldFilePath"></param>
-    public static void setupWorldManager(string worldFilePath) {
-        WORLD_MANAGER?.close();
-        WORLD_MANAGER = new WorldManager(worldFilePath);
-    }
-
+    /* TODO this is not needed? 
     /// <summary>
     /// binary size of a region in vxw files in bytes
     /// </summary>
@@ -113,8 +113,9 @@ public static class Global {
     private static void updateBinarySizes() {
         BYTE_CHUNK_SIZE = (int)((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE + 1) * HEIGHT_LIMIT + 2);
         BYTE_REGION_SIZE = REGION_SIZE * REGION_SIZE * BYTE_CHUNK_SIZE;
-    }
+    } */
 
+    /* TODO this is not needed?
     /// <summary>
     /// max region coordinate
     /// </summary>
@@ -165,28 +166,28 @@ public static class Global {
         MIN_CHUNK_POS = MIN_REGION_POS * REGION_SIZE * -1;
         
         updateBinarySizes();
-    }
+    } */
 
     /// <summary>
     /// lists all variables and their values from Global to console 
     /// </summary>
     public static void listAll() {
         Debug.info("Global variables:");
-        ConsoleColors.printlnColored(
+        ConsoleColors.printlnColored(/*
             $"    display width: \x1B[1m{DISPLAY_WIDTH}\x1B[22m,\n" + 
             $"    display height: \x1B[1m{DISPLAY_HEIGHT}\x1B[22m,\n" + 
             $"    field of view: \x1B[1m{FOV}\x1B[22m,\n" + 
-            $"    player position: \x1B[1m[{PLAYER_POS.x}, {PLAYER_POS.y}, {PLAYER_POS.z}]\x1B[22m,\n" + 
+            $"    player position: \x1B[1m[{PLAYER_POS.x}, {PLAYER_POS.y}, {PLAYER_POS.z}]\x1B[22m,\n" +  */
             $"    height limit: \x1B[1m{HEIGHT_LIMIT}\x1B[22m,\n" + 
             $"    chunk size: \x1B[1m{CHUNK_SIZE}\x1B[22m voxels,\n" + 
             $"    region size: \x1B[1m{REGION_SIZE}\x1B[22m chunks,\n" + 
-            $"    world size: \x1B[1m{WORLD_SIZE}\x1B[22m regions,\n" + 
-            $"    biome dimensions: \x1B[1m{(BIOME_DIMENSIONS ? "3d" : "2d")}\x1B[22m,\n" + 
-            $"    max region coordinate: \x1B[1m{MAX_REGION_POS}\x1B[22m,\n" + 
-            $"    min region coordinate: \x1B[1m{MIN_REGION_POS}\x1B[22m,\n" + 
-            $"    max horizontal coordinate: \x1B[1m{MAX_HORIZONTAL_POS}\x1B[22m,\n" + 
-            $"    min horizontal coordinate: \x1B[1m{MIN_HORIZONTAL_POS}\x1B[22m", 
-            (int)Colors.GRAY_2);
+            // $"    world size: \x1B[1m{WORLD_SIZE}\x1B[22m regions,\n" + 
+            $"    biome dimensions: \x1B[1m{(BIOME_DIMENSIONS ? "3d" : "2d")}\x1B[22m,\n" + "",
+            // $"    max region coordinate: \x1B[1m{MAX_REGION_POS}\x1B[22m,\n" + 
+            // $"    min region coordinate: \x1B[1m{MIN_REGION_POS}\x1B[22m,\n" + 
+            // $"    max horizontal coordinate: \x1B[1m{MAX_HORIZONTAL_POS}\x1B[22m,\n" + 
+            // $"    min horizontal coordinate: \x1B[1m{MIN_HORIZONTAL_POS}\x1B[22m", 
+            (int)Shell.PALETTE.colors[4]);
     }
 
     /// <summary>
@@ -195,7 +196,7 @@ public static class Global {
     public static readonly Shell SHELL = new();
 
     public static void registerCommands() {
-        CommandRegistry.registerCommand(WorldManager.WM);
+        // CommandRegistry.registerCommand(WorldManager.WM);
     }
     
     /// <summary>
@@ -226,7 +227,16 @@ public static class Global {
         /// <summary>
         /// global generation seed
         /// </summary>
-        public static int SEED = 0;
+        public static long SEED;
+
+        public static long getUniqueSeed(string keyword) {
+            long seed = SEED;
+            for (int i = keyword.Length < 64 ? keyword.Length - 1 : 64 - 1; i >= 0; i--) {
+                seed += keyword[i] << i;
+            }
+
+            return seed;
+        }
         
         /// <summary>
         /// biome points set by the user
@@ -234,10 +244,13 @@ public static class Global {
         public static readonly List<(int x, int y, string biomeId)> BIOME_POINTS = new();
 
         /// <summary>
-        /// size of cell noise grid unit (in chunks), used in biome generation 
+        /// chunks in which the auto point generation is diabled
         /// </summary>
-        public static int BIOME_POINT_PADDING = 16;
+        public static readonly List<(int x, int y)> DISABLED_CHUNK_POINTS = new();
         
+        /// <summary>
+        /// presets for biome and terrain generation
+        /// </summary>
         public enum WorldPresets {
             NORMAL = 0,
             SINGLE_BIOME = 1,
@@ -247,5 +260,29 @@ public static class Global {
             ART = 5,
             VOID = 6
         }
+
+        /// <summary>
+        /// types of world border
+        /// </summary>
+        public enum WorldBorderType {
+            INFINITE = 0,
+            ISLAND = 1,
+            LOOP = 2
+        }
+        
+        /// <summary>
+        /// preset for biome and terrain generation
+        /// </summary>
+        public static int WORLD_PRESET = (int)WorldPresets.NORMAL;
+        
+        /// <summary>
+        /// type of world border
+        /// </summary>
+        public static int WORLD_BORDER_TYPE = (int)WorldBorderType.INFINITE;
+
+        /// <summary>
+        /// whether the generated terrain is made of minecraft vanilla blocks
+        /// </summary>
+        public static bool VANILLA = true;
     }
 }

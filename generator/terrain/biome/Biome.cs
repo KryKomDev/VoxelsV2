@@ -4,6 +4,7 @@
 //
 
 using Kolors;
+using VoxelsCoreSharp.data;
 using VoxelsCoreSharp.generator.feature.organic;
 using VoxelsCoreSharp.world;
 
@@ -12,7 +13,7 @@ namespace VoxelsCoreSharp.generator.terrain.biome;
 /// <summary>
 /// biome structure holding info about the different biomes
 /// </summary>
-public class Biome(byte humidity, sbyte temperature, (Tree tree, float density)[] trees, Voxel[]? surface = null) {
+public class Biome(byte humidity, sbyte temperature, (Tree tree, float density)[] trees, Voxel[]? surface = null, int previewColor = 0x25b312) : RegistryObject {
 
     /// <summary>
     /// biome humidity level (in percent), 0 - 100
@@ -28,7 +29,7 @@ public class Biome(byte humidity, sbyte temperature, (Tree tree, float density)[
     /// <summary>
     /// voxels generated on the surface
     /// </summary>
-    public Voxel[] surface { get; private set; } = surface ?? [Voxels.GRASS_BLOCK];
+    public Voxel[] surface { get; private set; } = surface ?? [VoxelRegistry.GRASS_BLOCK];
 
     /// <summary>
     /// array of tree types generated in the biome and its density (chance per block)
@@ -36,20 +37,16 @@ public class Biome(byte humidity, sbyte temperature, (Tree tree, float density)[
     public (Tree tree, float density)[] trees { get; private set; } = trees;
 
     /// <summary>
-    /// biome id
+    /// color representing the biome in the biome setter window in launcher
     /// </summary>
-    private string _id = "";
-    public string id {
-        get => _id;
-        set { if (_id != "") _id = value; else Debug.error($"Cannot set an already-set id of biome '{id}'!"); }
-    }
+    public int previewColor { get; private set; }
 
-    public Biome(byte humidity, sbyte temperature, (Tree tree, float density)[] tree, Voxel? surface = null)
-        : this(humidity, temperature, tree, surface != null ? [surface] : null) {}
+    public Biome(byte humidity, sbyte temperature, (Tree tree, float density)[] tree, Voxel? surface = null, int previewColor = 0x25b312)
+        : this(humidity, temperature, tree, surface != null ? [surface] : null, previewColor) {}
     
-    public Biome(byte humidity, sbyte temperature, (Tree tree, float density) tree, Voxel[]? surface = null) 
-        : this(humidity, temperature, [tree], surface) {}
+    public Biome(byte humidity, sbyte temperature, (Tree tree, float density) tree, Voxel[]? surface = null, int previewColor = 0x25b312) 
+        : this(humidity, temperature, [tree], surface, previewColor) {}
     
-    public Biome(byte humidity, sbyte temperature, (Tree tree, float density) tree, Voxel? surface = null) 
-        : this(humidity, temperature, [tree], surface != null ? [surface] : null) {}
+    public Biome(byte humidity, sbyte temperature, (Tree tree, float density) tree, Voxel? surface = null, int previewColor = 0x25b312) 
+        : this(humidity, temperature, [tree], surface != null ? [surface] : null, previewColor) {}
 }

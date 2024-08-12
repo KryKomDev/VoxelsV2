@@ -17,20 +17,20 @@ public class SceneManager {
     private bool active = false;
     
     public SceneManager() {
-        activate();
+        // activate();
         
         
     }
 
-    public void activate() {
-        if (Global.WORLD_MANAGER == null) {
-            active = false;
-            Debug.error("World Manager not set yet! Please set the world manager before setting up.");
-        }
-        else {
-            active = true;
-        }
-    }
+    // public void activate() {
+    //     if (Global.WORLD_MANAGER == null) {
+    //         active = false;
+    //         Debug.error("World Manager not set yet! Please set the world manager before setting up.");
+    //     }
+    //     else {
+    //         active = true;
+    //     }
+    // }
 
     /// <summary>
     /// loads chunks that are supposed to be loaded

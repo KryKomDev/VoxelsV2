@@ -3,18 +3,25 @@
 // by KryKom 2024
 //
 
+// ---
+// This shall not continue being developed, as it is a bit unnecessary anymore
+// me who realized that after spending hours writing this shit: *cries silently in pain*
+// ---
+
 using Commandier;
 using Commandier.argument;
 using Kolors;
 
-namespace VoxelsCoreSharp.world;
+namespace VoxelsCoreSharp.world; 
+
+/*
 
 /// <summary>
 /// reads from / writes to .vxw world files
 /// </summary>
 public class WorldManager {
 
-    public static readonly Command WM = new Command("wm", [new StringArgument("tool_name")], (object[] args) => {
+    public static readonly Command WM = new("wm", [new StringArgument("tool_name")], (object[] args) => {
         if ((string)args[0] == "setup") {
             VXWHeader header = new VXWHeader();
 
@@ -164,10 +171,10 @@ public class WorldManager {
     public void loadHeader() {
         VXWHeader header = readHeader();
 
-        Global.CHUNK_SIZE = header.chunkSize;
-        Global.HEIGHT_LIMIT = header.maxHeight;
+        // Global.CHUNK_SIZE = header.chunkSize;
+        // Global.HEIGHT_LIMIT = header.maxHeight;
         Global.WORLD_SIZE = header.worldSize;
-        Global.REGION_SIZE = header.regionSize;
+        // Global.REGION_SIZE = header.regionSize;
         Global.BIOME_DIMENSIONS = header.biomeDim;
         
         Global.updatePrecalculatedVariables();
@@ -465,4 +472,6 @@ public struct VXWHeader {
                $"m-height: \x1B[1m{maxHeight}\x1B[22m,\n" +
                $"biomeDim: \x1B[1m{biomeDim}\x1B[22m";
     }
-}
+} 
+
+*/
