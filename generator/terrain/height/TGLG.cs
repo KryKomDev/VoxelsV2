@@ -222,4 +222,36 @@ public class TGLG {
             generationMap[sum.x / count, sum.y / count] = 1;
         }
     }
+
+    private class Point {
+        public int x { get; set; }
+        public int y { get; set; }
+        
+        /// <summary>
+        /// which points are connected <br/>
+        /// +-----+-----------+     <br/>
+        /// | bit | direction |     <br/>
+        /// +-----+-----------+     <br/>
+        /// |  0  | left      |     <br/>
+        /// |  1  | left-up   |     <br/>
+        /// |  2  | up        |     <br/>
+        /// |  3  | up-right  |     <br/>
+        /// |  4  | right     |     <br/>
+        /// |  5  | right-down|     <br/>
+        /// |  6  | down      |     <br/>
+        /// |  7  | down-left |     <br/>
+        /// +-----+-----------+
+        /// </summary>
+        public byte connections { get; set; }
+        public bool closed { get; set; }
+
+        public bool connectedWith(int direction) {
+            if (direction is < 0 or > 7) {
+                Debug.error($"Incorrect direction inputted for point at [{x}, {y}]");
+                return false;
+            }
+            
+            return (connections & (0b1 << direction)) == 0b1 << direction;
+        }
+    }
 }
