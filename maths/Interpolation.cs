@@ -177,6 +177,15 @@ public static class Interpolation {
                     "Could not calculate the value, returning null.");
         return false;
     }
-    
-    
+}
+
+
+/// <summary>
+/// types of interpolation for DLA/RDLA and etc. blurring 
+/// </summary>
+public enum InterpolationType {
+    CLOSEST = 0,
+    BILINEAR = 1,
+    BICUBIC = 2,
+    CUSTOM = 3
 }
